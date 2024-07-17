@@ -5,6 +5,7 @@
 package view;
 
 import controller.MemorandumController;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.Formulario;
@@ -166,14 +167,14 @@ public class Registros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
         }else{
             int id = Integer.parseInt((String) jTable1.getValueAt(fila,0).toString());
-            String fecha = (String) jTable1.getValueAt(fila, 1);
+            Date fecha = (Date) jTable1.getValueAt(fila, 1);
             String numMemo = (String) jTable1.getValueAt(fila, 2);
             String dirigidoA = (String) jTable1.getValueAt(fila, 3);
             String asunto = (String) jTable1.getValueAt(fila, 4);
             String departamento = (String) jTable1.getValueAt(fila, 5);
             String autor = (String) jTable1.getValueAt(fila, 6);
             
-            
+            //form.rellenarCampos(id, fecha, numMemo, dirigidoA, asunto, departamento, autor);
         }
     }//GEN-LAST:event_jTable1MouseClicked
 

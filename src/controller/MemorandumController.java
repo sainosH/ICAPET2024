@@ -23,8 +23,8 @@ public class MemorandumController {
 
     public Date fecha;
     public String memo, destino, asunto, departamento, autor;
-    private Conexion conn;
-    private Connection connection;
+    public Conexion conn;
+    public Connection connection;
     public PreparedStatement st;
     public ResultSet rs;
 
@@ -50,7 +50,7 @@ public class MemorandumController {
             guardar.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
         }
     }
