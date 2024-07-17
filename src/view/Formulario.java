@@ -245,6 +245,16 @@ public class Formulario extends javax.swing.JFrame {
         System.exit(WIDTH);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void rellenarCampos(Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
+        jDate.setDate(fecha);
+        jTextField1.setText(numMemo.split("/")[0]); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
+        jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
+        txtDirigido.setText(dirigido);
+        txtAsunto.setText(asunto);
+        jcbDepartamento.setSelectedItem(departamento);
+        txtElaborado.setText(elaborado);
+    }
+
     /**
      * @param args the command line arguments
      */
