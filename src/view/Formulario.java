@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 public class Formulario extends javax.swing.JFrame {
 
     private MemorandumController memoController;
+    public int id;
 
     public Formulario() {
         initComponents();
@@ -217,7 +218,23 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDirigidoActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
+        try {
+            String nombre = txtElaborado.getText();
+            String dirigido = txtDirigido.getText();
+            String asunto = txtAsunto.getText();
+            String departamento = jcbDepartamento.getSelectedItem().toString();
+
+            // Obtener la fecha
+            Date date = jDate.getDate();
+            SimpleDateFormat sdfYear = new SimpleDateFormat("yy"); // Formato para obtener los últimos dos dígitos del año
+            String shortYear = sdfYear.format(date);
+            String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
+
+            // Llamar al método Registro del controlador
+            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -245,7 +262,8 @@ public class Formulario extends javax.swing.JFrame {
         System.exit(WIDTH);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void rellenarCampos(Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
+    public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
+        id = idr;
         jDate.setDate(fecha);
         jTextField1.setText(numMemo.split("/")[0]); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
         jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));

@@ -160,6 +160,7 @@ public class Registros extends javax.swing.JFrame {
         try{
         if (selectedRow >= 0) {
             // Obtén los datos de la fila seleccionada
+            int idr = Integer.parseInt((String) jTable1.getValueAt(selectedRow, 0));
             String fecha = (String) jTable1.getValueAt(selectedRow, 1);
             Date fech = sdf.parse(fecha);
             String numMemo = (String) jTable1.getValueAt(selectedRow, 2);
@@ -169,7 +170,7 @@ public class Registros extends javax.swing.JFrame {
             String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
 
             // Crea una instancia del formulario y establece los datos
-            form.rellenarCampos(fech, numMemo, dirigido, asunto, departamento, elaborado);
+            form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado);
 
             // Muestra el formulario
             form.setVisible(true);
