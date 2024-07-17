@@ -5,6 +5,7 @@
 package view;
 
 import controller.MemorandumController;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import view.Formulario;
 
@@ -15,6 +16,7 @@ import view.Formulario;
 public class Registros extends javax.swing.JFrame {
 
     MemorandumController consulta = new MemorandumController();
+    Formulario form = new Formulario();
     
     public Registros() {
         initComponents();
@@ -64,6 +66,11 @@ public class Registros extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -144,16 +151,31 @@ public class Registros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearRegistroActionPerformed
-        Formulario form = new Formulario();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
-        Formulario form = new Formulario();
         form.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_EditarRegistroActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
+        }else{
+            int id = Integer.parseInt((String) jTable1.getValueAt(fila,0).toString());
+            String fecha = (String) jTable1.getValueAt(fila, 1);
+            String numMemo = (String) jTable1.getValueAt(fila, 2);
+            String dirigidoA = (String) jTable1.getValueAt(fila, 3);
+            String asunto = (String) jTable1.getValueAt(fila, 4);
+            String departamento = (String) jTable1.getValueAt(fila, 5);
+            String autor = (String) jTable1.getValueAt(fila, 6);
+            
+            
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
