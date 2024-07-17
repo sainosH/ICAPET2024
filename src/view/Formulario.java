@@ -1,12 +1,9 @@
 package view;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import model.Conexion;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import controller.MemorandumController;
 
 /**
  *
@@ -14,13 +11,11 @@ import java.util.Date;
  */
 public class Formulario extends javax.swing.JFrame {
 
-    private Conexion conn;
-    private Connection connection;
+    private MemorandumController memoController;
 
     public Formulario() {
         initComponents();
-        conn = new Conexion();
-        connection = conn.establecerconexion();
+        memoController = new MemorandumController();
     }
 
     @SuppressWarnings("unchecked")
@@ -246,25 +241,12 @@ public class Formulario extends javax.swing.JFrame {
             String dirigido = txtDirigido.getText();
             String asunto = txtAsunto.getText();
             String departamento = jcbDepartamento.getSelectedItem().toString();
-            // Obtener y formatear la fecha
+            // Obtener la fecha
             Date date = jDate.getDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String fecha = sdf.format(date);
-            // Formatear numMemo
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + jYearChooser1.getYear();
 
-            String sql = "INSERT INTO memorandum (fecha, numMemo, nomDestino, asunto, departamento, autor) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement guardar = connection.prepareStatement(sql);
-            guardar.setString(1, fecha);
-            guardar.setString(2, numMemo);
-            guardar.setString(3, dirigido);
-            guardar.setString(4, asunto);
-            guardar.setString(5, departamento);
-            guardar.setString(6, nombre);
-            guardar.executeUpdate();
-            //subiendo todo
-
-            JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+            // Llamar al método Registro del controlador
+            memoController.Registro(date, numMemo, dirigido, asunto, departamento, nombre);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
         }
@@ -290,27 +272,23 @@ public class Formulario extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Formulario.class  
+            java.util.logging.Logger.getLogger(Formulario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Formulario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Formulario.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Formulario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Formulario.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Formulario.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Formulario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
