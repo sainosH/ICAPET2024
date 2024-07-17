@@ -23,18 +23,20 @@ public class MemorandumController {
 
     public Date fecha;
     public String memo, destino, asunto, departamento, autor;
-    private Conexion conn;
-    private Connection connection;
+    //private Conexion conn;
+    //private Connection connection;
     public PreparedStatement st;
     public ResultSet rs;
 
     public MemorandumController() {
-        conn = new Conexion();
-        connection = conn.establecerconexion();
+        //conn = new Conexion();
+        //connection = conn.establecerconexion();
     }
 
     public void Registro(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
+        Connection connection = null;
         try {
+            connection = new Conexion().establecerconexion();
             // Formatear la fecha
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String fecha = sdf.format(fechaOrig);
@@ -48,15 +50,51 @@ public class MemorandumController {
             guardar.setString(5, area);
             guardar.setString(6, elabora);
             guardar.executeUpdate();
-
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void Eliminar(int id) {
+        Connection connection = null;
+
+        try {
+            connection = new Conexion().establecerconexion();
+
+            String sql = "DELETE FROM memorandum WHERE id = ?";
+            PreparedStatement eliminar = connection.prepareStatement(sql);
+            eliminar.setInt(1, id);
+            eliminar.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro: " + e.getMessage());
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     public DefaultTableModel Mostrar(DefaultTableModel model) {
+        Connection connection = null;
+        ResultSet rs = null;
+        PreparedStatement st = null;
         try {
+            connection = new Conexion().establecerconexion();
+
             String sql = "select * from memorandum";
             st = connection.prepareStatement(sql);
             rs = st.executeQuery();
@@ -76,9 +114,25 @@ public class MemorandumController {
         } catch (SQLException e) {
             System.out.println(e);
         } finally {
-            // Cerrar recursos
             try {
                 if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return model;
+        /*finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) { //Diferente
                     rs.close();
                 }
                 if (st != null) {
@@ -91,14 +145,12 @@ public class MemorandumController {
                 e.getMessage();
             }
         }
-        return model;
+        return model;*/
+
     }
 
     public void Actualizar(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
 
     }
 
-    public void Eliminar(String memorando) {
-
-    }
 }

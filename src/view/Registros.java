@@ -7,7 +7,6 @@ package view;
 import controller.MemorandumController;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import view.Formulario;
 
 /**
  *
@@ -15,15 +14,28 @@ import view.Formulario;
  */
 public class Registros extends javax.swing.JFrame {
 
-    MemorandumController consulta = new MemorandumController();
-    Formulario form = new Formulario();
-    
+//    private MemorandumController memoController;
+//    MemorandumController consulta = new MemorandumController();
+//    Formulario form = new Formulario();
+    private MemorandumController memoController;
+    private Formulario form;
+
     public Registros() {
+//        initComponents();
+//        setLocationRelativeTo(null);
+//        DefaultTableModel model = new DefaultTableModel();
+//        model = (DefaultTableModel) jTable1.getModel();
+//        jTable1.setModel(consulta.Mostrar(model));
+//        memoController = new MemorandumController();
+//        model = (DefaultTableModel) jTable1.getModel();
+//        //Eliminar
+//        memoController = new MemorandumController();
+//        cargarDatos();
         initComponents();
         setLocationRelativeTo(null);
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) jTable1.getModel();
-        jTable1.setModel(consulta.Mostrar(model));
+        memoController = new MemorandumController();
+        form = new Formulario();
+        cargarDatos();
     }
 
     /**
@@ -40,6 +52,7 @@ public class Registros extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         EditarRegistro = new javax.swing.JButton();
         CrearRegistro = new javax.swing.JButton();
+        EliminarRegistro = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,18 +102,26 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
+        EliminarRegistro.setText("Eliminar");
+        EliminarRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarRegistroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1083, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(CrearRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                    .addComponent(EliminarRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +132,9 @@ public class Registros extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(CrearRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(18, 18, 18)
+                .addComponent(EliminarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(EditarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(100, Short.MAX_VALUE))
         );
@@ -153,6 +176,7 @@ public class Registros extends javax.swing.JFrame {
     private void CrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearRegistroActionPerformed
         form.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
@@ -164,18 +188,36 @@ public class Registros extends javax.swing.JFrame {
         int fila = jTable1.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
-        }else{
-            int id = Integer.parseInt((String) jTable1.getValueAt(fila,0).toString());
+        } else {
+            int id = Integer.parseInt((String) jTable1.getValueAt(fila, 0).toString());
             String fecha = (String) jTable1.getValueAt(fila, 1);
             String numMemo = (String) jTable1.getValueAt(fila, 2);
             String dirigidoA = (String) jTable1.getValueAt(fila, 3);
             String asunto = (String) jTable1.getValueAt(fila, 4);
             String departamento = (String) jTable1.getValueAt(fila, 5);
             String autor = (String) jTable1.getValueAt(fila, 6);
-            
-            
+
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void EliminarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarRegistroActionPerformed
+        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
+        } else {
+            int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+            memoController.Eliminar(id);
+            cargarDatos(); // Refrescar datos en la tabla
+        }
+    }
+
+    private void cargarDatos() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Limpiar la tabla no se puedo eliminar el registro: No operations allowed after conecctioni closed.
+        memoController.Mostrar(model);
+
+    }//GEN-LAST:event_EliminarRegistroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,16 +233,24 @@ public class Registros extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Registros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Registros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Registros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Registros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Registros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Registros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Registros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Registros.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -215,6 +265,7 @@ public class Registros extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CrearRegistro;
     private javax.swing.JButton EditarRegistro;
+    private javax.swing.JButton EliminarRegistro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
