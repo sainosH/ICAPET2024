@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package controller;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Conexion;
 
 /**
@@ -18,10 +20,11 @@ import model.Conexion;
  */
 public class MemorandumController {
     public Date fecha;
-    public String memo, destino, asunto, departamento,autor;
-    public ArrayList registro;    
+    public String memo, destino, asunto, departamento,autor;  
     private Conexion conn;
     private Connection connection;
+    public PreparedStatement st;
+    public ResultSet rs;
     
     public MemorandumController() {
         conn = new Conexion();
@@ -45,14 +48,45 @@ public class MemorandumController {
             guardar.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
         }
 
     }
-    public ArrayList Mostrar(){
-        return registro;
+    public DefaultTableModel Mostrar(DefaultTableModel model){
+        try{
+        String sql = "select * from memorandum";
+        st = connection.prepareStatement(sql);
+        rs = st.executeQuery();
+        String [] memos = new String [7];
+        
+        while (rs.next()){
+            memos[0] = Integer.toString(rs.getInt("id"));
+            memos[1] = rs.getString("fecha");
+            memos[2] = rs.getString("numMemo");
+            memos[3] = rs.getString("nomDestino");
+            memos[4] = rs.getString("asunto");
+            memos[5] = rs.getString("departamento");
+            memos[6] = rs.getString("autor");
+            
+            model.addRow(memos);
+        }
+        }catch(SQLException e){
+            System.out.println(e);
+        } finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close();
+                if (st != null) st.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.getMessage();
+            }
+        }
+        return model;
     }
+    
+    
     public void Actualizar(Date fechaOrig, String memorando, String dirigido,String asunto,String area,String elabora){
         
     }
