@@ -13,10 +13,21 @@ import java.text.SimpleDateFormat;
 public class Formulario extends javax.swing.JFrame {
 
     private MemorandumController memoController;
+    public int id;
 
     public Formulario() {
         initComponents();
         memoController = new MemorandumController();
+    }
+
+    public void prepararParaCrear() {
+        btnGuardar.setEnabled(true);
+        btnActualizar.setEnabled(false);
+    }
+
+    public void prepararParaActualizar() {
+        btnGuardar.setEnabled(false);
+        btnActualizar.setEnabled(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -40,7 +51,7 @@ public class Formulario extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jSpinner1 = new javax.swing.JSpinner();
         btnGuardar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -101,10 +112,10 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -114,19 +125,18 @@ public class Formulario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jblDepartamento)
                             .addComponent(jblElaborado))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jcbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(298, Short.MAX_VALUE))
+                            .addComponent(jcbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtElaborado, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jblAsunto)
@@ -152,9 +162,8 @@ public class Formulario extends javax.swing.JFrame {
                                         .addGap(75, 75, 75)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnActualizar)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addContainerGap(14, Short.MAX_VALUE))))
+                                            .addComponent(btnActualizar))))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,9 +205,9 @@ public class Formulario extends javax.swing.JFrame {
                 .addComponent(btnActualizar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
-                .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addGap(100, 100, 100))
+                .addGap(30, 30, 30)
+                .addComponent(btnCancelar)
+                .addGap(104, 104, 104))
         );
 
         pack();
@@ -218,6 +227,31 @@ public class Formulario extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        try {
+            String nombre = txtElaborado.getText();
+            String dirigido = txtDirigido.getText();
+            String asunto = txtAsunto.getText();
+            String departamento = jcbDepartamento.getSelectedItem().toString();
+
+            // Obtener la fecha
+            Date date = jDate.getDate();
+            SimpleDateFormat sdfYear = new SimpleDateFormat("yy"); // Formato para obtener los últimos dos dígitos del año
+            String shortYear = sdfYear.format(date);
+            String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
+
+            // Llamar al método Registro del controlador
+            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre);
+            JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+
+            // Regresar a la pantalla de registros
+            Registros registros = new Registros();
+            registros.setVisible(true);
+            this.dispose();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -235,15 +269,49 @@ public class Formulario extends javax.swing.JFrame {
 
             // Llamar al método Registro del controlador
             memoController.Registro(date, numMemo, dirigido, asunto, departamento, nombre);
+            JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+
+            // Regresar a la pantalla de registros
+            Registros registros = new Registros();
+            registros.setVisible(true);
+            this.dispose();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        System.exit(WIDTH);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        volverARegistros();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void volverARegistros() {
+        Registros registros = new Registros();
+        registros.setVisible(true);
+        this.dispose();
+    }
+
+    public void configurarParaNuevoRegistro() {
+        btnActualizar.setEnabled(false);
+        btnGuardar.setEnabled(true);
+    }
+
+    public void configurarParaEdicion() {
+        btnActualizar.setEnabled(true);
+        btnGuardar.setEnabled(false);
+    }
+
+    public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
+        id = idr;
+        jDate.setDate(fecha);
+        jTextField1.setText(numMemo.split("/")[0]); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
+        jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
+        txtDirigido.setText(dirigido);
+        txtAsunto.setText(asunto);
+        jcbDepartamento.setSelectedItem(departamento);
+        txtElaborado.setText(elaborado);
+    }
 
     /**
      * @param args the command line arguments
@@ -290,8 +358,8 @@ public class Formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDate;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JScrollPane jScrollPane1;

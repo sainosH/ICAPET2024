@@ -3,37 +3,39 @@ package model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  * @Fecha: Martes 16 de Julio del 2024
  * @author Sainos
  * @Descripción: Creación de la clase conecxión para la base de datos.
  */
+
 public class Conexion {
 
-    private Connection conexion;
+    private static Connection conexion;
+    private static final String URL = "jdbc:mysql://localhost:3306/incapet";
+    private static final String USUARIO = "root";
+    private static final String CLAVE = "root";
 
-    public Connection establecerconexion() {
-        try {
-            String url = "jdbc:mysql://localhost:3306/incapet";
-            String usuario = "root";
-            String clave = "root";
-
-            conexion = DriverManager.getConnection(url, usuario, clave);
-            JOptionPane.showMessageDialog(null, "Se conecto a la BD");
-            return conexion;
-        } catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "No conecto a la BD" + e.toString());
-            return null;
+    public static Connection establecerconexion() {
+        if (conexion == null) {
+            try {
+                conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+                System.out.println("Se conectó a la BD");
+            } catch (SQLException e) {
+                System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+                conexion = null;
+            }
         }
+        return conexion;
     }
 
-    public void cerrarconexion() {
+    public static void cerrarconexion() {
         try {
-            if (conexion != null) {
+            if (conexion != null && !conexion.isClosed()) {
                 conexion.close();
+                conexion = null;
+                System.out.println("Conexión cerrada");
             }
         } catch (SQLException e) {
             System.out.println("Error al cerrar la conexión: " + e.getMessage());
