@@ -23,14 +23,14 @@ public class MemorandumController {
 
     public Date fecha;
     public String memo, destino, asunto, departamento, autor;
-    //private Conexion conn;
-    //private Connection connection;
+    private Conexion conn;
+    private Connection connection;
     public PreparedStatement st;
     public ResultSet rs;
 
     public MemorandumController() {
-        //conn = new Conexion();
-        //connection = conn.establecerconexion();
+        conn = new Conexion();
+        connection = conn.establecerconexion();
     }
 
     public void Registro(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
@@ -149,8 +149,27 @@ public class MemorandumController {
 
     }
 
-    public void Actualizar(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
+    public void Actualizar(int id, Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
+        try {
+            // Formatear la fecha
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String fecha = sdf.format(fechaOrig);
 
+            String sql = "UPDATE memorandum SET fecha = ?, numMemo = ?, nomDestino = ?, asunto = ?, departamento = ?, autor = ? WHERE id = ?";
+            PreparedStatement actualizar = connection.prepareStatement(sql);
+            actualizar.setString(1, fecha);
+            actualizar.setString(2, memorando);
+            actualizar.setString(3, dirigido);
+            actualizar.setString(4, asunto);
+            actualizar.setString(5, area);
+            actualizar.setString(6, elabora);
+            actualizar.setInt(7, id);
+            actualizar.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Datos actualizados correctamentee");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
+        }
     }
 
 }

@@ -33,7 +33,6 @@ select * from memorandum;
 
 DESCRIBE memorandum;
 
-*/
-    
-    
+     */
+
 }

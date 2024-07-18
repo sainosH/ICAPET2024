@@ -5,6 +5,8 @@
 package view;
 
 import controller.MemorandumController;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,23 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Registros extends javax.swing.JFrame {
 
-//    private MemorandumController memoController;
-//    MemorandumController consulta = new MemorandumController();
-//    Formulario form = new Formulario();
     private MemorandumController memoController;
     private Formulario form;
 
     public Registros() {
-//        initComponents();
-//        setLocationRelativeTo(null);
-//        DefaultTableModel model = new DefaultTableModel();
-//        model = (DefaultTableModel) jTable1.getModel();
-//        jTable1.setModel(consulta.Mostrar(model));
-//        memoController = new MemorandumController();
-//        model = (DefaultTableModel) jTable1.getModel();
-//        //Eliminar
-//        memoController = new MemorandumController();
-//        cargarDatos();
         initComponents();
         setLocationRelativeTo(null);
         memoController = new MemorandumController();
@@ -176,12 +165,37 @@ public class Registros extends javax.swing.JFrame {
     private void CrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearRegistroActionPerformed
         form.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
         form.setVisible(true);
         this.dispose();
+        int selectedRow = jTable1.getSelectedRow();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            if (selectedRow >= 0) {
+                // Obtén los datos de la fila seleccionada
+                int idr = Integer.parseInt((String) jTable1.getValueAt(selectedRow, 0));
+                String fecha = (String) jTable1.getValueAt(selectedRow, 1);
+                Date fech = sdf.parse(fecha);
+                String numMemo = (String) jTable1.getValueAt(selectedRow, 2);
+                String dirigido = (String) jTable1.getValueAt(selectedRow, 3);
+                String asunto = (String) jTable1.getValueAt(selectedRow, 4);
+                String departamento = (String) jTable1.getValueAt(selectedRow, 5);
+                String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
+
+                // Crea una instancia del formulario y establece los datos
+                form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado);
+
+                // Muestra el formulario
+                form.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selecciona una fila para editar");
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
     }//GEN-LAST:event_EditarRegistroActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
