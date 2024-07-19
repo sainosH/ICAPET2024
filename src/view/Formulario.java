@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import controller.MemorandumController;
 import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
+import javax.swing.JFrame;
 
 /**
  *
@@ -17,7 +18,9 @@ public class Formulario extends javax.swing.JFrame {
 
     public Formulario() {
         initComponents();
+        setLocationRelativeTo(null);
         memoController = new MemorandumController();
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void prepararParaCrear() {
@@ -268,7 +271,7 @@ public class Formulario extends javax.swing.JFrame {
 
             // Llamar al método Registro del controlador
             memoController.Registro(date, numMemo, dirigido, asunto, departamento, nombre);
-            JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+            //JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
 
             // Regresar a la pantalla de registros
             volverARegistros();

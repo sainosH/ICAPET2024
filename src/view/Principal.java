@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JFrame;
 import view.Registros;
 
 /**
@@ -14,6 +15,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
