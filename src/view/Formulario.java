@@ -244,7 +244,7 @@ public class Formulario extends javax.swing.JFrame {
 
             // Llamar al método Registro del controlador
             memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre);
-            JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
+            //JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
 
             // Regresar a la pantalla de registros
             volverARegistros();
