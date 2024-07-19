@@ -305,7 +305,7 @@ public class Formulario extends javax.swing.JFrame {
     public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
         id = idr;
         jDate.setDate(fecha);
-        jTextField1.setText(numMemo.split("/")[0]); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
+        jTextField1.setText(numMemo.split("/")[0]+"/"+ numMemo.split("/")[1]+"/"); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
         jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
         txtDirigido.setText(dirigido);
         txtAsunto.setText(asunto);

@@ -159,7 +159,7 @@ public class Registros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CrearRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearRegistroActionPerformed
-        Formulario form = new Formulario();
+        //Formulario form = new Formulario();
         form.configurarParaNuevoRegistro(); // Configurar para nuevo registro
         form.setVisible(true);
         this.dispose();
@@ -181,7 +181,7 @@ public class Registros extends javax.swing.JFrame {
                 String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
 
                 // Crea una instancia del formulario y establece los datos
-                Formulario form = new Formulario();
+                //Formulario form = new Formulario();
                 form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado);
 
                 // Configurar para edición
@@ -198,7 +198,7 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_EditarRegistroActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int fila = jTable1.getSelectedRow();
+       /* int fila = jTable1.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
         } else {
@@ -210,7 +210,7 @@ public class Registros extends javax.swing.JFrame {
             String departamento = (String) jTable1.getValueAt(fila, 5);
             String autor = (String) jTable1.getValueAt(fila, 6);
 
-        }
+        }*/
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
