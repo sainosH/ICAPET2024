@@ -244,9 +244,8 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
 
             // Regresar a la pantalla de registros
-            Registros registros = new Registros();
-            registros.setVisible(true);
-            this.dispose();
+            volverARegistros();
+            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
@@ -272,9 +271,7 @@ public class Formulario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
 
             // Regresar a la pantalla de registros
-            Registros registros = new Registros();
-            registros.setVisible(true);
-            this.dispose();
+            volverARegistros();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
