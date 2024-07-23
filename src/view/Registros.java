@@ -48,13 +48,14 @@ public class Registros extends javax.swing.JFrame {
         TableColumnModel columnModel = jTable1.getColumnModel();
 
         // Ajustar el ancho de las columnas
-        columnModel.getColumn(0).setPreferredWidth(10);
-        columnModel.getColumn(1).setPreferredWidth(15);
-        columnModel.getColumn(2).setPreferredWidth(50);
-        columnModel.getColumn(3).setPreferredWidth(80);
-        columnModel.getColumn(4).setPreferredWidth(30);
-        columnModel.getColumn(5).setPreferredWidth(30);
-        columnModel.getColumn(6).setPreferredWidth(20);
+        columnModel.getColumn(0).setPreferredWidth(1);
+        columnModel.getColumn(1).setPreferredWidth(10);
+        columnModel.getColumn(2).setPreferredWidth(65);
+        columnModel.getColumn(3).setPreferredWidth(90);
+        columnModel.getColumn(4).setPreferredWidth(35);
+        columnModel.getColumn(5).setPreferredWidth(25);
+        columnModel.getColumn(6).setPreferredWidth(15);
+        columnModel.getColumn(7).setPreferredWidth(80);
     }
 
     @SuppressWarnings("unchecked")
@@ -82,14 +83,14 @@ public class Registros extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Fecha", "# Memorandum", "Dirigido A", "Asunto", "Área/Departamento", "Elaboró"
+                "ID", "Fecha", "# Memorandum", "Dirigido A", "Asunto", "Área/Departamento", "Elaboró", "Observaciones"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -141,13 +142,14 @@ public class Registros extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1096, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CrearRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CrearRegistro, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,7 +190,7 @@ public class Registros extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 317, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,10 +242,11 @@ public class Registros extends javax.swing.JFrame {
                 String asunto = (String) jTable1.getValueAt(selectedRow, 4);
                 String departamento = (String) jTable1.getValueAt(selectedRow, 5);
                 String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
+                String observaciones = (String) jTable1.getValueAt(selectedRow, 7);
 
                 // Crea una instancia del formulario y establece los datos
                 //Formulario form = new Formulario();
-                form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado);
+                form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado, observaciones);
 
                 // Configurar para edición
                 form.configurarParaEdicion(); // Muestra el formulario

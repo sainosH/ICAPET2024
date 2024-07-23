@@ -206,19 +206,16 @@ public class Formulario extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtDirigido)
                                 .addGap(116, 116, 116))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jcbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jcbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(114, 114, 114)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCancelar)
                             .addComponent(btnActualizar)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(44, 44, 44))))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(398, 398, 398)
-                    .addComponent(jScrollPane2)
-                    .addGap(231, 231, 231)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -239,19 +236,21 @@ public class Formulario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jblDirigido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDirigido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jblAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jblAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar))
+                        .addGap(65, 65, 65)
+                        .addComponent(btnCancelar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jblDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jcbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(btnCancelar)))
+                            .addComponent(jcbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jblElaborado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,11 +260,6 @@ public class Formulario extends javax.swing.JFrame {
                     .addComponent(jblObservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(68, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(262, 262, 262)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGap(285, 285, 285)))
         );
 
         jPanel2.setForeground(new java.awt.Color(93, 20, 43));
@@ -346,8 +340,9 @@ public class Formulario extends javax.swing.JFrame {
         try {
             String nombre = txtElaborado.getText();
             String dirigido = txtDirigido.getText();
-            String asunto = txtObservaciones.getText();
+            String asunto = txtAsunto.getText();
             String departamento = jcbDepartamento.getSelectedItem().toString();
+            String observaciones = txtObservaciones.getText();
 
             // Obtener la fecha
             Date date = jDate.getDate();
@@ -356,7 +351,7 @@ public class Formulario extends javax.swing.JFrame {
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
 
             // Llamar al método Registro del controlador
-            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre);
+            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre, observaciones);
             //JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
 
             // Regresar a la pantalla de registros
@@ -391,7 +386,7 @@ public class Formulario extends javax.swing.JFrame {
             volverARegistros();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -420,15 +415,16 @@ public class Formulario extends javax.swing.JFrame {
         btnGuardar.setEnabled(false);
     }
 
-    public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado) {
+    public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado, String observaciones) {
         id = idr;
         jDate.setDate(fecha);
         jTextField1.setText(numMemo.split("/")[0] + "/" + numMemo.split("/")[1] + "/"); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
         jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
         txtDirigido.setText(dirigido);
-        txtObservaciones.setText(asunto);
+        txtAsunto.setText(asunto);
         jcbDepartamento.setSelectedItem(departamento);
         txtElaborado.setText(elaborado);
+        txtObservaciones.setText(observaciones);
     }
 
     /**

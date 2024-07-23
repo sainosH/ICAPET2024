@@ -57,7 +57,7 @@ public class MemorandumController {
         String sql = "SELECT * FROM memorandum";
         try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
             model.setRowCount(0);
-            String[] memos = new String[7];
+            String[] memos = new String[8];
             while (rs.next()) {
                 memos[0] = Integer.toString(rs.getInt("id"));
                 memos[1] = rs.getString("fecha");
@@ -66,6 +66,7 @@ public class MemorandumController {
                 memos[4] = rs.getString("asunto");
                 memos[5] = rs.getString("departamento");
                 memos[6] = rs.getString("autor");
+                memos[7] = rs.getString("observaciones");
                 model.addRow(memos);
             }
         } catch (SQLException e) {
@@ -73,11 +74,11 @@ public class MemorandumController {
         }
         return model;
     }
-   public void Actualizar(int id, Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
+   public void Actualizar(int id, Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora, String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
-        String sql = "UPDATE memorandum SET fecha = ?, numMemo = ?, nomDestino = ?, asunto = ?, departamento = ?, autor = ? WHERE id = ?";
+        String sql = "UPDATE memorandum SET fecha = ?, numMemo = ?, nomDestino = ?, asunto = ?, departamento = ?, autor = ?, observaciones = ? WHERE id = ?";
         try (PreparedStatement actualizar = connection.prepareStatement(sql)) {
             actualizar.setString(1, fecha);
             actualizar.setString(2, memorando);
@@ -85,7 +86,8 @@ public class MemorandumController {
             actualizar.setString(4, asunto);
             actualizar.setString(5, area);
             actualizar.setString(6, elabora);
-            actualizar.setInt(7, id);
+            actualizar.setString(7, observaciones);
+            actualizar.setInt(8, id);
             actualizar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
         } catch (SQLException e) {
