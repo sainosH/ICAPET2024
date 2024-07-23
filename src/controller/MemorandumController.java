@@ -22,11 +22,11 @@ public class MemorandumController {
         this.connection = Conexion.establecerconexion();
     }
 
-   public void Registro(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora) {
+   public void Registro(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora, String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
-        String sql = "INSERT INTO memorandum (fecha, numMemo, nomDestino, asunto, departamento, autor) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO memorandum (fecha, numMemo, nomDestino, asunto, departamento, autor, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement guardar = connection.prepareStatement(sql)) {
             guardar.setString(1, fecha);
             guardar.setString(2, memorando);
@@ -34,6 +34,7 @@ public class MemorandumController {
             guardar.setString(4, asunto);
             guardar.setString(5, area);
             guardar.setString(6, elabora);
+            guardar.setString(7, observaciones);
             guardar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
         } catch (SQLException e) {
