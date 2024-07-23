@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
 import view.Registros;
 
@@ -18,6 +20,14 @@ public class Principal extends javax.swing.JFrame {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
+    //icon jframe
+    @Override
+    public Image getIconImage() {
+        // Usa una ruta relativa para cargar el ícono
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icapet/memorandum/logoGobierno2.png"));
+        return icono;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,6 +41,7 @@ public class Principal extends javax.swing.JFrame {
         AbrirRegistros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         AbrirRegistros.setLabel("Ingresar");
         AbrirRegistros.addActionListener(new java.awt.event.ActionListener() {

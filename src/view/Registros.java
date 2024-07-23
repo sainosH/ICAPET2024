@@ -2,6 +2,8 @@ package view;
 
 import controller.MemorandumController;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -43,6 +45,14 @@ public class Registros extends javax.swing.JFrame {
         
     }
     
+    //icon jframe
+    @Override
+    public Image getIconImage() {
+        // Usa una ruta relativa para cargar el ícono
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icapet/memorandum/logoGobierno2.png"));
+        return icono;
+    }
+    
     public void ajustarColumnas(){
         // Obtener el modelo de columnas
         TableColumnModel columnModel = jTable1.getColumnModel();
@@ -75,6 +85,7 @@ public class Registros extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -112,7 +123,7 @@ public class Registros extends javax.swing.JFrame {
 
         EditarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         EditarRegistro.setForeground(new java.awt.Color(0, 0, 0));
-        EditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/editar-archivo (1).png"))); // NOI18N
+        EditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/editar-archivo (2).png"))); // NOI18N
         EditarRegistro.setText("Editar     ");
         EditarRegistro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import controller.MemorandumController;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
@@ -35,6 +36,14 @@ public class Formulario extends javax.swing.JFrame {
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF")); // Cambia el valor hexadecimal al color deseado
 
+    }
+    
+    //icon jframe
+    @Override
+    public Image getIconImage() {
+        // Usa una ruta relativa para cargar el ícono
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icapet/memorandum/logoGobierno2.png"));
+        return icono;
     }
 
     public void prepararParaCrear() {
@@ -81,6 +90,7 @@ public class Formulario extends javax.swing.JFrame {
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
