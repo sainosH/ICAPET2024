@@ -63,7 +63,6 @@ public class Formulario extends javax.swing.JFrame {
         jblDepartamento = new javax.swing.JLabel();
         jblElaborado = new javax.swing.JLabel();
         jblAsunto = new javax.swing.JLabel();
-        txtDirigido = new javax.swing.JTextField();
         jcbDepartamento = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtObservaciones = new javax.swing.JTextArea();
@@ -76,6 +75,7 @@ public class Formulario extends javax.swing.JFrame {
         jblObservaciones = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAsunto = new javax.swing.JTextArea();
+        txtDirigido = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -123,14 +123,8 @@ public class Formulario extends javax.swing.JFrame {
         jblAsunto.setForeground(new java.awt.Color(255, 255, 255));
         jblAsunto.setText("Asunto");
 
-        txtDirigido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDirigidoActionPerformed(evt);
-            }
-        });
-
         jcbDepartamento.setEditable(true);
-        jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RH", "DTA", "INCAPET", "OK" }));
+        jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RH", "DTA", "DIE", "DJ", "DA", "UDC 154 POCHUTLA", "DV", "EAM", "UDC 085 OAXACA" }));
         jcbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbDepartamentoActionPerformed(evt);
@@ -186,6 +180,14 @@ public class Formulario extends javax.swing.JFrame {
         txtAsunto.setRows(5);
         jScrollPane2.setViewportView(txtAsunto);
 
+        txtDirigido.setEditable(true);
+        txtDirigido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lic. Yessica Monserrat Hernández Dávila", "Lic. Matilde Mijangos Almaraz", "Lic. Guadalupe Hernández Jacinto", "Ing. Marilyn Fernanda Bautista Márquez", "Dr. Eden Méndez Rojas", "Dra. Lundy Melchor Mateos", "Lic. José Roberto Esteva Balam", "Lic. Pablo Meraz", "Ing. Laura Leticia Ruíz López", "Lic. Xochitl Guadalupe Vargas López", "Lic. Pedro Cruz Rodríguez", "Lic. Francisco Javier Martínez Guzmán", "Lic. José Luis Cruz Santiago", "Lic. Jorge Porras Sánchez", "Lic. Mariano Cruz Valdivieso" }));
+        txtDirigido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDirigidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -214,15 +216,13 @@ public class Formulario extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtElaborado, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jcbDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtDirigido, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(50, 50, 50))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDirigido, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -246,10 +246,10 @@ public class Formulario extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(68, 68, 68)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jblDirigido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDirigido, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jblAsunto, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -344,15 +344,11 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbDepartamentoActionPerformed
 
-    private void txtDirigidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDirigidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDirigidoActionPerformed
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         try {
             String nombre = txtElaborado.getText();
-            String dirigido = txtDirigido.getText();
+            String dirigido = txtDirigido.getSelectedItem().toString();
             String asunto = txtAsunto.getText();
             String departamento = jcbDepartamento.getSelectedItem().toString();
             String observaciones = txtObservaciones.getText();
@@ -375,7 +371,7 @@ public class Formulario extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
             String nombre = txtElaborado.getText();
-            String dirigido = txtDirigido.getText();
+            String dirigido = txtDirigido.getSelectedItem().toString();
             String asunto = txtAsunto.getText();
             String departamento = jcbDepartamento.getSelectedItem().toString();
             String observaciones = txtObservaciones.getText();
@@ -407,6 +403,10 @@ public class Formulario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void txtDirigidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDirigidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDirigidoActionPerformed
+
     private void volverARegistros() {
         Registros registros = new Registros();
         registros.setVisible(true);
@@ -428,7 +428,7 @@ public class Formulario extends javax.swing.JFrame {
         jDate.setDate(fecha);
         jTextField1.setText(numMemo.split("/")[0] + "/" + numMemo.split("/")[1] + "/"); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
         jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
-        txtDirigido.setText(dirigido);
+        txtDirigido.setSelectedItem(dirigido);
         txtAsunto.setText(asunto);
         jcbDepartamento.setSelectedItem(departamento);
         txtElaborado.setText(elaborado);
@@ -502,7 +502,7 @@ public class Formulario extends javax.swing.JFrame {
     private javax.swing.JLabel jblObservaciones;
     private javax.swing.JComboBox<String> jcbDepartamento;
     private javax.swing.JTextArea txtAsunto;
-    private javax.swing.JTextField txtDirigido;
+    private javax.swing.JComboBox<String> txtDirigido;
     private javax.swing.JTextField txtElaborado;
     private javax.swing.JTextArea txtObservaciones;
     // End of variables declaration//GEN-END:variables
