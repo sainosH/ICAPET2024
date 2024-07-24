@@ -11,7 +11,6 @@ import view.Registros;
  * @author Vite
  */
 public class Principal extends javax.swing.JFrame {
-
     /**
      * Creates new form RegistroMemos
      */
