@@ -94,6 +94,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/act.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +154,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/gua.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,10 +223,10 @@ public class Formulario extends javax.swing.JFrame {
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jcbDepartamento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(114, 114, 114)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCancelar)
-                            .addComponent(btnActualizar)
-                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(44, 44, 44))))
         );
         jPanel1Layout.setVerticalGroup(
