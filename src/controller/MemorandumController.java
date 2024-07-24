@@ -44,7 +44,7 @@ public class MemorandumController {
             guardar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos NO guardados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -55,7 +55,7 @@ public class MemorandumController {
             eliminar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -77,6 +77,7 @@ public class MemorandumController {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos NO mostrados correctamente, reinicie la app.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return model;
     }
@@ -102,7 +103,7 @@ public class MemorandumController {
             actualizar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos NO actualizados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

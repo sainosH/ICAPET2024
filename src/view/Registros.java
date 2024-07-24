@@ -325,7 +325,7 @@ public class Registros extends javax.swing.JFrame {
                 form.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una fila para editar");
+                JOptionPane.showMessageDialog(null, "Selecciona una fila para editar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -338,7 +338,7 @@ public class Registros extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fila = jTable1.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
             memoController.Eliminar(id);
@@ -366,7 +366,7 @@ public class Registros extends javax.swing.JFrame {
     private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado un registro");
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado un registro", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -401,7 +401,7 @@ public class Registros extends javax.swing.JFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnWordActionPerformed

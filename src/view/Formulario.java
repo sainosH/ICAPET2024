@@ -363,7 +363,7 @@ public class Formulario extends javax.swing.JFrame {
             // Regresar a la pantalla de registros
             volverARegistros();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -390,7 +390,7 @@ public class Formulario extends javax.swing.JFrame {
             volverARegistros();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, puede que el #MEMO ya esté ocupado.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
