@@ -6,10 +6,8 @@ import controller.MemorandumController;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import javax.swing.JTextField;
 import java.text.SimpleDateFormat;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  *
@@ -37,7 +35,7 @@ public class Formulario extends javax.swing.JFrame {
         jPanel2.setBackground(Color.decode("#FFFFFF")); // Cambia el valor hexadecimal al color deseado
 
     }
-    
+
     //icon jframe
     @Override
     public Image getIconImage() {
@@ -387,9 +385,8 @@ public class Formulario extends javax.swing.JFrame {
             String nombre = txtElaborado.getText();
             String dirigido = txtDirigido.getText();
             String asunto = txtAsunto.getText();
-            String departamento = jcbDepartamento.getSelectedItem().toString(); 
+            String departamento = jcbDepartamento.getSelectedItem().toString();
             String observaciones = txtObservaciones.getText();
-            
 
             // Obtener la fecha
             Date date = jDate.getDate();

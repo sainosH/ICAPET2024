@@ -16,6 +16,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import view.Formulario;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  *
@@ -82,6 +90,7 @@ public class Registros extends javax.swing.JFrame {
         CrearRegistro = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btnWord = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -170,6 +179,13 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
+        btnWord.setText("Word");
+        btnWord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -182,8 +198,9 @@ public class Registros extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(CrearRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(117, Short.MAX_VALUE))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +209,7 @@ public class Registros extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(CrearRegistro)
                         .addGap(27, 27, 27)
@@ -200,7 +217,9 @@ public class Registros extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(EditarRegistro)
                         .addGap(56, 56, 56)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
@@ -242,7 +261,7 @@ public class Registros extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,6 +386,60 @@ public class Registros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtFiltroKeyTyped
 
+    private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado un registro");
+            return;
+        }
+
+        try {
+            // Obtener los datos de la fila seleccionada
+            int id = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+            String fecha = jTable1.getValueAt(selectedRow, 1).toString();
+            String numMemo = jTable1.getValueAt(selectedRow, 2).toString();
+            String dirigido = jTable1.getValueAt(selectedRow, 3).toString();
+            String asunto = jTable1.getValueAt(selectedRow, 4).toString();
+            String departamento = jTable1.getValueAt(selectedRow, 5).toString();
+            String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
+            String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
+
+            // Crear el documento Word
+            XWPFDocument document = new XWPFDocument();
+            XWPFParagraph paragraph = document.createParagraph();
+            XWPFRun run = paragraph.createRun();
+            
+            run.setText("ID: " + id);
+            run.addBreak();
+            run.setText("Fecha: " + fecha);
+            run.addBreak();
+            run.setText("Número de Memorándum: " + numMemo);
+            run.addBreak();
+            run.setText("Dirigido a: " + dirigido);
+            run.addBreak();
+            run.setText("Asunto: " + asunto);
+            run.addBreak();
+            run.setText("Departamento: " + departamento);
+            run.addBreak();
+            run.setText("Elaborado por: " + elaborado);
+            run.addBreak();
+            run.setText("Observaciones: " + observaciones);
+            
+            // Guardar el documento en un archivo
+            try (FileOutputStream out = new FileOutputStream("Memorandum_" + id + ".docx")) {
+                document.write(out);
+            }
+            
+            // Confirmar al usuario que el archivo se ha guardado
+            JOptionPane.showMessageDialog(this, "Documento Word generado correctamente.");
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: " + e.getMessage());
+        }   
+    }//GEN-LAST:event_btnWordActionPerformed
+
     private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Limpiar la tabla no se puedo eliminar el registro: No operations allowed after conecctioni closed.
@@ -430,6 +503,7 @@ public class Registros extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CrearRegistro;
     private javax.swing.JButton EditarRegistro;
+    private javax.swing.JButton btnWord;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
