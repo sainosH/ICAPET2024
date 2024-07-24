@@ -18,8 +18,6 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
         // Cargar la imagen y establecerla en jLabel1
         ImageIcon icon = new ImageIcon(getClass().getResource("/icapet/memorandum/logoGobierno.png"));
         jLabel1.setIcon(icon);

@@ -9,28 +9,20 @@ import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
-import view.Formulario;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
  * @author Sainos
  */
 public class Registros extends javax.swing.JFrame {
-
     private MemorandumController memoController;
     private Formulario form;
     private TableRowSorter<DefaultTableModel> rowSorter; // Definir el TableRowSorter
@@ -47,10 +39,8 @@ public class Registros extends javax.swing.JFrame {
         // Cargar la imagen y establecerla en jLabel1
         ImageIcon icon = new ImageIcon(getClass().getResource("/icapet/memorandum/Log.png"));
         jLabel1.setIcon(icon);
-
         // Cambiar el color de fondo del panel
         jPanel1.setBackground(Color.decode("#5C152B")); // Cambia el valor hexadecimal al color deseado
-
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF")); // Cambia el valor hexadecimal al color deseado
 
@@ -67,7 +57,6 @@ public class Registros extends javax.swing.JFrame {
     public void ajustarColumnas() {
         // Obtener el modelo de columnas
         TableColumnModel columnModel = jTable1.getColumnModel();
-
         // Ajustar el ancho de las columnas
         columnModel.getColumn(0).setPreferredWidth(1);
         columnModel.getColumn(1).setPreferredWidth(10);
@@ -179,6 +168,10 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
+        btnWord.setBackground(new java.awt.Color(93, 82, 39));
+        btnWord.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnWord.setForeground(new java.awt.Color(0, 0, 0));
+        btnWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/word.png"))); // NOI18N
         btnWord.setText("Word");
         btnWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +202,7 @@ public class Registros extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(CrearRegistro)
                         .addGap(27, 27, 27)
@@ -220,7 +213,7 @@ public class Registros extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(27, 27, 27)
                         .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -261,7 +254,7 @@ public class Registros extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(607, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +269,7 @@ public class Registros extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -324,16 +317,13 @@ public class Registros extends javax.swing.JFrame {
                 String departamento = (String) jTable1.getValueAt(selectedRow, 5);
                 String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
                 String observaciones = (String) jTable1.getValueAt(selectedRow, 7);
-
                 // Crea una instancia del formulario y establece los datos
-                //Formulario form = new Formulario();
                 form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado, observaciones);
-
                 // Configurar para edición
-                form.configurarParaEdicion(); // Muestra el formulario
+                form.configurarParaEdicion();
+                // Muestra el formulario
                 form.setVisible(true);
                 this.dispose();
-
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila para editar");
             }
@@ -343,19 +333,6 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_EditarRegistroActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        /* int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro");
-        } else {
-            int id = Integer.parseInt((String) jTable1.getValueAt(fila, 0).toString());
-            String fecha = (String) jTable1.getValueAt(fila, 1);
-            String numMemo = (String) jTable1.getValueAt(fila, 2);
-            String dirigidoA = (String) jTable1.getValueAt(fila, 3);
-            String asunto = (String) jTable1.getValueAt(fila, 4);
-            String departamento = (String) jTable1.getValueAt(fila, 5);
-            String autor = (String) jTable1.getValueAt(fila, 6);
-
-        }*/
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -370,8 +347,8 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0); // Cerrar la aplicación
+        // Cerrar la aplicación
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
@@ -387,13 +364,11 @@ public class Registros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroKeyTyped
 
     private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
-        // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado un registro");
             return;
         }
-
         try {
             // Obtener los datos de la fila seleccionada
             int id = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
@@ -405,12 +380,24 @@ public class Registros extends javax.swing.JFrame {
             String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
             String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
 
-            // Llamar al método del controlador para generar el documento Word
-            memoController.generarDocumentoWord(id, fecha, numMemo, dirigido, 
-                    asunto, departamento, elaborado, observaciones);
-
-            // Confirmar al usuario que el archivo se ha guardado
-            JOptionPane.showMessageDialog(this, "Documento Word generado correctamente.");
+            // Crear el JFileChooser para seleccionar la ubicación de guardado
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Guardar como");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Documentos de Word (*.docx)", "docx"));
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                // Asegurar que el archivo tenga la extensión .docx
+                if (!filePath.toLowerCase().endsWith(".docx")) {
+                    filePath += ".docx";
+                }
+                // Llamar al método del controlador para generar el documento Word
+                memoController.generarDocumentoWord(filePath, id, fecha, numMemo,
+                        dirigido, asunto, departamento, elaborado, observaciones);               
+                // Confirmar al usuario que el archivo se ha guardado
+                JOptionPane.showMessageDialog(this, "Documento Word guardado correctamente en: " + filePath);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -421,9 +408,9 @@ public class Registros extends javax.swing.JFrame {
 
     private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Limpiar la tabla no se puedo eliminar el registro: No operations allowed after conecctioni closed.
+        model.setRowCount(0); // Limpiar la tabla no se puedo eliminar el registro.
         memoController.Mostrar(model);
-        // Asegúrate de que el TableRowSorter se inicializa después de que se hayan cargado los datos.
+        // Asegurarse de que el TableRowSorter se inicializa después de que se hayan cargado los datos.
         configurarFiltro();
     }
 

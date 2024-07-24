@@ -1,9 +1,6 @@
 package controller;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -12,7 +9,6 @@ import model.Conexion;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -24,15 +20,19 @@ import java.io.IOException;
 public class MemorandumController {
 
     private Connection connection;
+
     public MemorandumController() {
         this.connection = Conexion.establecerconexion();
     }
 
-   public void Registro(Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora, String observaciones) {
+    public void Registro(Date fechaOrig, String memorando, String dirigido,
+            String asunto, String area, String elabora, String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
-        String sql = "INSERT INTO memorandum (fecha, numMemo, nomDestino, asunto, departamento, autor, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO memorandum (fecha, numMemo, nomDestino,"
+                + " asunto, departamento, autor, observaciones) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement guardar = connection.prepareStatement(sql)) {
             guardar.setString(1, fecha);
             guardar.setString(2, memorando);
@@ -80,13 +80,16 @@ public class MemorandumController {
         }
         return model;
     }
-   public void Actualizar(int id, Date fechaOrig, String memorando,
-           String dirigido, String asunto, String area, String elabora,
-           String observaciones) {
+
+    public void Actualizar(int id, Date fechaOrig, String memorando,
+            String dirigido, String asunto, String area, String elabora,
+            String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
-        String sql = "UPDATE memorandum SET fecha = ?, numMemo = ?, nomDestino = ?, asunto = ?, departamento = ?, autor = ?, observaciones = ? WHERE id = ?";
+        String sql = "UPDATE memorandum SET fecha = ?, numMemo = ?, nomDestino ="
+                + " ?, asunto = ?, departamento = ?, autor = ?, observaciones = "
+                + "? WHERE id = ?";
         try (PreparedStatement actualizar = connection.prepareStatement(sql)) {
             actualizar.setString(1, fecha);
             actualizar.setString(2, memorando);
@@ -102,14 +105,14 @@ public class MemorandumController {
             JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
         }
     }
-   public void generarDocumentoWord(int id, String fecha, String numMemo, 
-           String dirigido, String asunto, String departamento, String elaborado, 
-           String observaciones) {
-        // Crear el documento Word
+
+    public void generarDocumentoWord(String filePath, int id, String fecha,
+            String numMemo, String dirigido, String asunto, String departamento,
+            String elaborado, String observaciones) {
         XWPFDocument document = new XWPFDocument();
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
-        
+
         run.setText("ID: " + id);
         run.addBreak();
         run.setText("Fecha: " + fecha);
@@ -125,11 +128,10 @@ public class MemorandumController {
         run.setText("Elaborado por: " + elaborado);
         run.addBreak();
         run.setText("Observaciones: " + observaciones);
-        
-        // Guardar el documento en un archivo
-        try (FileOutputStream out = new FileOutputStream("Memorandum_" + id + ".docx")) {
+
+        // Guardar el documento en la ruta especificada
+        try (FileOutputStream out = new FileOutputStream(filePath)) {
             document.write(out);
-            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
