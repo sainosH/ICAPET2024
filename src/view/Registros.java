@@ -405,39 +405,18 @@ public class Registros extends javax.swing.JFrame {
             String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
             String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
 
-            // Crear el documento Word
-            XWPFDocument document = new XWPFDocument();
-            XWPFParagraph paragraph = document.createParagraph();
-            XWPFRun run = paragraph.createRun();
-            
-            run.setText("ID: " + id);
-            run.addBreak();
-            run.setText("Fecha: " + fecha);
-            run.addBreak();
-            run.setText("Número de Memorándum: " + numMemo);
-            run.addBreak();
-            run.setText("Dirigido a: " + dirigido);
-            run.addBreak();
-            run.setText("Asunto: " + asunto);
-            run.addBreak();
-            run.setText("Departamento: " + departamento);
-            run.addBreak();
-            run.setText("Elaborado por: " + elaborado);
-            run.addBreak();
-            run.setText("Observaciones: " + observaciones);
-            
-            // Guardar el documento en un archivo
-            try (FileOutputStream out = new FileOutputStream("Memorandum_" + id + ".docx")) {
-                document.write(out);
-            }
-            
+            // Llamar al método del controlador para generar el documento Word
+            memoController.generarDocumentoWord(id, fecha, numMemo, dirigido, 
+                    asunto, departamento, elaborado, observaciones);
+
             // Confirmar al usuario que el archivo se ha guardado
             JOptionPane.showMessageDialog(this, "Documento Word generado correctamente.");
-            
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al generar el documento Word: " + e.getMessage());
-        }   
+        }
+
     }//GEN-LAST:event_btnWordActionPerformed
 
     private void cargarDatos() {
@@ -466,7 +445,7 @@ public class Registros extends javax.swing.JFrame {
     }
 
     /**
-    * @param args the command line arguments
+     * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

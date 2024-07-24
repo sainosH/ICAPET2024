@@ -9,6 +9,12 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Conexion;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * @Fecha: Martes 16 de Julio del 2024
@@ -74,7 +80,9 @@ public class MemorandumController {
         }
         return model;
     }
-   public void Actualizar(int id, Date fechaOrig, String memorando, String dirigido, String asunto, String area, String elabora, String observaciones) {
+   public void Actualizar(int id, Date fechaOrig, String memorando,
+           String dirigido, String asunto, String area, String elabora,
+           String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
@@ -92,6 +100,38 @@ public class MemorandumController {
             JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente: " + e.getMessage());
+        }
+    }
+   public void generarDocumentoWord(int id, String fecha, String numMemo, 
+           String dirigido, String asunto, String departamento, String elaborado, 
+           String observaciones) {
+        // Crear el documento Word
+        XWPFDocument document = new XWPFDocument();
+        XWPFParagraph paragraph = document.createParagraph();
+        XWPFRun run = paragraph.createRun();
+        
+        run.setText("ID: " + id);
+        run.addBreak();
+        run.setText("Fecha: " + fecha);
+        run.addBreak();
+        run.setText("Número de Memorándum: " + numMemo);
+        run.addBreak();
+        run.setText("Dirigido a: " + dirigido);
+        run.addBreak();
+        run.setText("Asunto: " + asunto);
+        run.addBreak();
+        run.setText("Departamento: " + departamento);
+        run.addBreak();
+        run.setText("Elaborado por: " + elaborado);
+        run.addBreak();
+        run.setText("Observaciones: " + observaciones);
+        
+        // Guardar el documento en un archivo
+        try (FileOutputStream out = new FileOutputStream("Memorandum_" + id + ".docx")) {
+            document.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
