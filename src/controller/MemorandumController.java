@@ -11,6 +11,10 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 
 /**
  * @Fecha: Martes 16 de Julio del 2024
@@ -107,29 +111,43 @@ public class MemorandumController {
         }
     }
 
-    public void generarDocumentoWord(String filePath, int id, String fecha,
-            String numMemo, String dirigido, String asunto, String departamento,
-            String elaborado, String observaciones) {
+    public void generarDocumentoWord(String filePath, LocalDate fecha,
+            String numMemo, String dirigido, String asunto, String departamento) {
         XWPFDocument document = new XWPFDocument();
+
+        XWPFParagraph paragraph1 = document.createParagraph();
+        paragraph1.setAlignment(ParagraphAlignment.RIGHT);
+        XWPFRun run1 = paragraph1.createRun();
+        XWPFRun run2 = paragraph1.createRun();
+        XWPFRun run3 = paragraph1.createRun();
+        XWPFRun run4 = paragraph1.createRun();
+        XWPFRun run5 = paragraph1.createRun();
+        
+        run1.setBold(true);
+        run1.setText("ORIGEN: ");
+        run2.setBold(false);
+        run2.setText("UDC 189 MIAHUATLÁN DE PORFIRIO DÍAZ");
+        run2.addBreak();
+        run3.setBold(true);
+        run3.setText("MEMORÁNDUM NO: " + numMemo.split("/")[1] + "/"+ numMemo.split("/")[2]+"/20"+ numMemo.split("/")[3]);
+        run3.addBreak();
+        run3.setText("ASUNTO: ");
+        run4.setBold(false);
+        run4.setText(asunto);
+        run4.addBreak();
+        run4.addBreak();
+        run5.setBold(true);
+        run5.setText("Miahuatlán de Porfirio Díaz, Oax. " + fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"))));
+        run5.addBreak();
+        
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
-
-        run.setText("ID: " + id);
+        run.setBold(true);
+        run.setText(dirigido.toUpperCase());
         run.addBreak();
-        run.setText("Fecha: " + fecha);
+        run.setText(departamento);
         run.addBreak();
-        run.setText("Número de Memorándum: " + numMemo);
-        run.addBreak();
-        run.setText("Dirigido a: " + dirigido);
-        run.addBreak();
-        run.setText("Asunto: " + asunto);
-        run.addBreak();
-        run.setText("Departamento: " + departamento);
-        run.addBreak();
-        run.setText("Elaborado por: " + elaborado);
-        run.addBreak();
-        run.setText("Observaciones: " + observaciones);
-
+        
         // Guardar el documento en la ruta especificada
         try (FileOutputStream out = new FileOutputStream(filePath)) {
             document.write(out);

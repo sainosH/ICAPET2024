@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import java.io.File;
+import java.time.LocalDate;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -371,14 +372,14 @@ public class Registros extends javax.swing.JFrame {
         }
         try {
             // Obtener los datos de la fila seleccionada
-            int id = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-            String fecha = jTable1.getValueAt(selectedRow, 1).toString();
+            //int id = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+            LocalDate fecha = LocalDate.parse(jTable1.getValueAt(selectedRow, 1).toString());
             String numMemo = jTable1.getValueAt(selectedRow, 2).toString();
             String dirigido = jTable1.getValueAt(selectedRow, 3).toString();
             String asunto = jTable1.getValueAt(selectedRow, 4).toString();
             String departamento = jTable1.getValueAt(selectedRow, 5).toString();
-            String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
-            String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
+            //String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
+            //String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
 
             // Crear el JFileChooser para seleccionar la ubicación de guardado
             JFileChooser fileChooser = new JFileChooser();
@@ -393,15 +394,15 @@ public class Registros extends javax.swing.JFrame {
                     filePath += ".docx";
                 }
                 // Llamar al método del controlador para generar el documento Word
-                memoController.generarDocumentoWord(filePath, id, fecha, numMemo,
-                        dirigido, asunto, departamento, elaborado, observaciones);               
+                memoController.generarDocumentoWord(filePath, fecha, numMemo,
+                        dirigido, asunto, departamento);               
                 // Confirmar al usuario que el archivo se ha guardado
                 JOptionPane.showMessageDialog(this, "Documento Word guardado correctamente en: " + filePath);
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnWordActionPerformed
