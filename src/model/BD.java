@@ -1,8 +1,4 @@
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 /**
@@ -22,17 +18,12 @@ CREATE TABLE memorandum (
   nomDestino TEXT,
   asunto TEXT,
   departamento TEXT,
-  autor TEXT
+  autor TEXT,
+  observaciones TEXT
 );
 
-insert into memorandum (fecha, numMemo, nomDestino, asunto, departamento, autor) values 
-					('2024-07-15', 'MEMO/UDC189/118/24', 'Guadalupe Hernández Jacinto', 'Pago de instructores', 'DA', 'Fernanda'); 
-
 select * from memorandum;
-
-
 DESCRIBE memorandum;
-
 */
     
     

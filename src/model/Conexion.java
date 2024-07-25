@@ -9,7 +9,6 @@ import java.sql.SQLException;
  * @author Sainos
  * @Descripción: Creación de la clase conecxión para la base de datos.
  */
-
 public class Conexion {
 
     private static Connection conexion;

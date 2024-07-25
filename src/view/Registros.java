@@ -24,9 +24,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author Sainos
  */
 public class Registros extends javax.swing.JFrame {
+
     private MemorandumController memoController;
     private Formulario form;
-    private TableRowSorter<DefaultTableModel> rowSorter; // Definir el TableRowSorter
+    // Definir el TableRowSorter
+    private TableRowSorter<DefaultTableModel> rowSorter;
 
     public Registros() {
         initComponents();
@@ -38,12 +40,13 @@ public class Registros extends javax.swing.JFrame {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Cargar la imagen y establecerla en jLabel1
-        ImageIcon icon = new ImageIcon(getClass().getResource("/icapet/memorandum/Log.png"));
+        ImageIcon icon = new ImageIcon(getClass()
+                .getResource("/icapet/memorandum/Log.png"));
         jLabel1.setIcon(icon);
         // Cambiar el color de fondo del panel
-        jPanel1.setBackground(Color.decode("#5C152B")); // Cambia el valor hexadecimal al color deseado
+        jPanel1.setBackground(Color.decode("#5C152B"));
         // Cambiar el color de fondo del panel
-        jPanel2.setBackground(Color.decode("#FFFFFF")); // Cambia el valor hexadecimal al color deseado
+        jPanel2.setBackground(Color.decode("#FFFFFF"));
 
     }
 
@@ -51,7 +54,8 @@ public class Registros extends javax.swing.JFrame {
     @Override
     public Image getIconImage() {
         // Usa una ruta relativa para cargar el ícono
-        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icapet/memorandum/logoGobierno2.png"));
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass()
+                .getResource("/icapet/memorandum/logoGobierno2.png"));
         return icono;
     }
 
@@ -319,14 +323,16 @@ public class Registros extends javax.swing.JFrame {
                 String elaborado = (String) jTable1.getValueAt(selectedRow, 6);
                 String observaciones = (String) jTable1.getValueAt(selectedRow, 7);
                 // Crea una instancia del formulario y establece los datos
-                form.rellenarCampos(idr, fech, numMemo, dirigido, asunto, departamento, elaborado, observaciones);
+                form.rellenarCampos(idr, fech, numMemo, dirigido, asunto,
+                        departamento, elaborado, observaciones);
                 // Configurar para edición
                 form.configurarParaEdicion();
                 // Muestra el formulario
                 form.setVisible(true);
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Selecciona una fila para editar", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Selecciona una fila para "
+                        + "editar", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -339,7 +345,8 @@ public class Registros extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fila = jTable1.getSelectedRow();
         if (fila == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado un registro", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado "
+                    + "un registro", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
             memoController.Eliminar(id);
@@ -367,7 +374,8 @@ public class Registros extends javax.swing.JFrame {
     private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "No se ha seleccionado un registro", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado "
+                    + "un registro", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
@@ -395,23 +403,27 @@ public class Registros extends javax.swing.JFrame {
                 }
                 // Llamar al método del controlador para generar el documento Word
                 memoController.generarDocumentoWord(filePath, fecha, numMemo,
-                        dirigido, asunto, departamento);               
+                        dirigido, asunto, departamento);
                 // Confirmar al usuario que el archivo se ha guardado
-                JOptionPane.showMessageDialog(this, "Documento Word guardado correctamente en: " + filePath);
+                JOptionPane.showMessageDialog(this, "Documento Word guardado"
+                        + " correctamente en: " + filePath);
             }
 
         } catch (Exception e) {
             //e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al generar el documento Word: ", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al generar el documento"
+                    + " Word: ", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnWordActionPerformed
 
     private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Limpiar la tabla no se puedo eliminar el registro.
+        // Limpiar la tabla no se puedo eliminar el registro.
+        model.setRowCount(0);
         memoController.Mostrar(model);
-        // Asegurarse de que el TableRowSorter se inicializa después de que se hayan cargado los datos.
+        /* Asegurarse de que el TableRowSorter se inicializa después de que
+        se hayan cargado los datos.*/
         configurarFiltro();
     }
 

@@ -26,9 +26,9 @@ public class Formulario extends javax.swing.JFrame {
         ImageIcon icon = new ImageIcon(getClass().getResource("/icapet/memorandum/Log.png"));
         jLabel2.setIcon(icon);
         // Cambiar el color de fondo del panel
-        jPanel1.setBackground(Color.decode("#5C152B")); // Cambia el valor hexadecimal al color deseado
+        jPanel1.setBackground(Color.decode("#5C152B"));
         // Cambiar el color de fondo del panel
-        jPanel2.setBackground(Color.decode("#FFFFFF")); // Cambia el valor hexadecimal al color deseado
+        jPanel2.setBackground(Color.decode("#FFFFFF"));
 
     }
 
@@ -36,7 +36,8 @@ public class Formulario extends javax.swing.JFrame {
     @Override
     public Image getIconImage() {
         // Usa una ruta relativa para cargar el ícono
-        Image icono = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icapet/memorandum/logoGobierno2.png"));
+        Image icono = Toolkit.getDefaultToolkit().getImage(getClass()
+                .getResource("/icapet/memorandum/logoGobierno2.png"));
         return icono;
     }
 
@@ -355,15 +356,19 @@ public class Formulario extends javax.swing.JFrame {
 
             // Obtener la fecha
             Date date = jDate.getDate();
-            SimpleDateFormat sdfYear = new SimpleDateFormat("yy"); // Formato para obtener los últimos dos dígitos del año
+            // Formato para obtener los últimos dos dígitos del año
+            SimpleDateFormat sdfYear = new SimpleDateFormat("yy");
             String shortYear = sdfYear.format(date);
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
             // Llamar al método Registro del controlador
-            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre, observaciones);
+            memoController.Actualizar(id, date, numMemo, dirigido, asunto,
+                    departamento, nombre, observaciones);
             // Regresar a la pantalla de registros
             volverARegistros();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos no actualizados "
+                    + "correctamente, intente de nuevo.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -378,7 +383,8 @@ public class Formulario extends javax.swing.JFrame {
 
             // Obtener la fecha
             Date date = jDate.getDate();
-            SimpleDateFormat sdfYear = new SimpleDateFormat("yy"); // Formato para obtener los últimos dos dígitos del año
+            // Formato para obtener los últimos dos dígitos del año
+            SimpleDateFormat sdfYear = new SimpleDateFormat("yy");
             String shortYear = sdfYear.format(date);
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
 
@@ -390,7 +396,9 @@ public class Formulario extends javax.swing.JFrame {
             volverARegistros();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, puede que el #MEMO ya esté ocupado.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos no actualizados "
+                    + "correctamente, puede que el #MEMO ya esté ocupado.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -423,10 +431,14 @@ public class Formulario extends javax.swing.JFrame {
         btnGuardar.setEnabled(false);
     }
 
-    public void rellenarCampos(int idr, Date fecha, String numMemo, String dirigido, String asunto, String departamento, String elaborado, String observaciones) {
+    public void rellenarCampos(int idr, Date fecha, String numMemo,
+            String dirigido, String asunto, String departamento,
+            String elaborado, String observaciones) {
         id = idr;
         jDate.setDate(fecha);
-        jTextField1.setText(numMemo.split("/")[0] + "/" + numMemo.split("/")[1] + "/"); // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
+        // Asumiendo que numMemo tiene el formato "MEMO/UDC189/<numero>/<año>"
+        jTextField1.setText(numMemo.split("/")[0] + "/" + numMemo.split("/")[1]
+                + "/");
         jSpinner1.setValue(Integer.parseInt(numMemo.split("/")[2]));
         txtDirigido.setSelectedItem(dirigido);
         txtAsunto.setText(asunto);

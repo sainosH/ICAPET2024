@@ -48,7 +48,8 @@ public class MemorandumController {
             guardar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Datos NO guardados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos NO guardados correctamente,"
+                    + " intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -59,13 +60,15 @@ public class MemorandumController {
             eliminar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el registro.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public DefaultTableModel Mostrar(DefaultTableModel model) {
         String sql = "SELECT * FROM memorandum";
-        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+        try (PreparedStatement st = connection.prepareStatement(sql); 
+                ResultSet rs = st.executeQuery()) {
             model.setRowCount(0);
             String[] memos = new String[8];
             while (rs.next()) {
@@ -81,7 +84,8 @@ public class MemorandumController {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Datos NO mostrados correctamente, reinicie la app.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos NO mostrados correctamente,"
+                    + " reinicie la app.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return model;
     }
@@ -107,7 +111,8 @@ public class MemorandumController {
             actualizar.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos actualizados correctamente");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Datos NO actualizados correctamente, intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos NO actualizados correctamente, "
+                    + "intente de nuevo.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -122,14 +127,15 @@ public class MemorandumController {
         XWPFRun run3 = paragraph1.createRun();
         XWPFRun run4 = paragraph1.createRun();
         XWPFRun run5 = paragraph1.createRun();
-        
+
         run1.setBold(true);
         run1.setText("ORIGEN: ");
         run2.setBold(false);
         run2.setText("UDC 189 MIAHUATLÁN DE PORFIRIO DÍAZ");
         run2.addBreak();
         run3.setBold(true);
-        run3.setText("MEMORÁNDUM NO: " + numMemo.split("/")[1] + "/"+ numMemo.split("/")[2]+"/20"+ numMemo.split("/")[3]);
+        run3.setText("MEMORÁNDUM NO: " + numMemo.split("/")[1] + "/"
+                + numMemo.split("/")[2] + "/20" + numMemo.split("/")[3]);
         run3.addBreak();
         run3.setText("ASUNTO: ");
         run4.setBold(false);
@@ -137,9 +143,11 @@ public class MemorandumController {
         run4.addBreak();
         run4.addBreak();
         run5.setBold(true);
-        run5.setText("Miahuatlán de Porfirio Díaz, Oax. " + fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy", new Locale("es", "ES"))));
+        run5.setText("Miahuatlán de Porfirio Díaz, Oax. "
+                + fecha.format(DateTimeFormatter.ofPattern("dd 'de' MMMM 'de' yyyy",
+                        new Locale("es", "ES"))));
         run5.addBreak();
-        
+
         XWPFParagraph paragraph = document.createParagraph();
         XWPFRun run = paragraph.createRun();
         run.setBold(true);
@@ -147,7 +155,7 @@ public class MemorandumController {
         run.addBreak();
         run.setText(departamento);
         run.addBreak();
-        
+
         // Guardar el documento en la ruta especificada
         try (FileOutputStream out = new FileOutputStream(filePath)) {
             document.write(out);
