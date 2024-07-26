@@ -125,7 +125,7 @@ public class Formulario extends javax.swing.JFrame {
         jblAsunto.setText("Asunto");
 
         jcbDepartamento.setEditable(true);
-        jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RH", "DTA", "DIE", "DJ", "DA", "UDC 154 POCHUTLA", "DV", "EAM", "UDC 085 OAXACA" }));
+        jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
         jcbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbDepartamentoActionPerformed(evt);
@@ -217,7 +217,7 @@ public class Formulario extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtElaborado, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jcbDepartamento, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
                                     .addComponent(txtDirigido, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(50, 50, 50))
                             .addGroup(jPanel1Layout.createSequentialGroup()
