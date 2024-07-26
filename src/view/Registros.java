@@ -60,49 +60,6 @@ public class Registros extends javax.swing.JFrame {
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF"));
 
-        // Crear un renderer personalizado
-        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                // Establecer fuente
-                c.setFont(new Font("Arial", Font.PLAIN, 16));
-
-                // Cambiar el color de fondo según la columna
-                switch (column) {
-                    case 0:
-                        c.setBackground(Color.YELLOW);
-                        break;
-                    case 1:
-                        c.setBackground(Color.CYAN);
-                        break;
-                    case 2:
-                        c.setBackground(Color.PINK);
-                        break;
-                    default:
-                        c.setBackground(Color.WHITE);
-                        break;
-                }
-
-                // Ajustar el color del texto
-                c.setForeground(Color.BLACK);
-
-                // Ajustar el color del texto si la fila está seleccionada
-                if (isSelected) {
-                    c.setBackground(Color.BLUE);
-                    c.setForeground(Color.WHITE);
-                }
-
-                return c;
-            }
-        };
-
-        // Asignar el renderer a cada columna de la tabla
-        for (int i = 0; i < jTable1.getColumnCount(); i++) {
-            jTable1.getColumnModel().getColumn(i).setCellRenderer(renderer);
-        }
-
-        jTable1.setRowHeight(25); // Ajustar la altura de las filas
     }
 
     //icon jframe
@@ -156,7 +113,7 @@ public class Registros extends javax.swing.JFrame {
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 255, 153));
+        jTable1.setForeground(new java.awt.Color(0, 0, 0));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -528,13 +485,6 @@ public class Registros extends javax.swing.JFrame {
         });
     }
 
-    private void initicomponents() {
-        jTable1 = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2",
-            "Column3", "Column4", "Column5", "Column6", "Column7", "Column8"}, 0));
-        add(new JScrollPane(jTable1));
-
-    }
-
     /**
      * @param args the command line arguments
      */
@@ -559,12 +509,6 @@ public class Registros extends javax.swing.JFrame {
             public void run() {
                 new Registros().setVisible(true);
             }
-        });
-        SwingUtilities.invokeLater(() -> {
-            Registros frame = new Registros();
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
         });
     }
 
