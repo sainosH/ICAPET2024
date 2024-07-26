@@ -89,7 +89,7 @@ public class Formulario extends javax.swing.JFrame {
 
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
 
-        btnActualizar.setBackground(new java.awt.Color(93, 82, 39));
+        btnActualizar.setBackground(new java.awt.Color(230, 212, 191));
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(0, 153, 0));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/act.png"))); // NOI18N
@@ -125,6 +125,7 @@ public class Formulario extends javax.swing.JFrame {
         jblAsunto.setText("Asunto");
 
         jcbDepartamento.setEditable(true);
+        jcbDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
         jcbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,10 +134,12 @@ public class Formulario extends javax.swing.JFrame {
         });
 
         txtObservaciones.setColumns(20);
+        txtObservaciones.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtObservaciones.setRows(5);
         jScrollPane1.setViewportView(txtObservaciones);
 
         jTextField1.setEditable(false);
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jTextField1.setText("MEMO/UDC189/");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,9 +147,10 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
+        jSpinner1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        btnGuardar.setBackground(new java.awt.Color(93, 82, 39));
+        btnGuardar.setBackground(new java.awt.Color(230, 212, 191));
         btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/gua.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -156,7 +160,7 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(93, 82, 39));
+        btnCancelar.setBackground(new java.awt.Color(230, 212, 191));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 0, 0));
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/cerrar.png"))); // NOI18N
@@ -167,6 +171,7 @@ public class Formulario extends javax.swing.JFrame {
             }
         });
 
+        txtElaborado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtElaborado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtElaboradoActionPerformed(evt);
@@ -178,10 +183,12 @@ public class Formulario extends javax.swing.JFrame {
         jblObservaciones.setText("Observaciones");
 
         txtAsunto.setColumns(20);
+        txtAsunto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtAsunto.setRows(5);
         jScrollPane2.setViewportView(txtAsunto);
 
         txtDirigido.setEditable(true);
+        txtDirigido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtDirigido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lic. Yessica Monserrat Hernández Dávila", "Lic. Matilde Mijangos Almaraz", "Lic. Guadalupe Hernández Jacinto", "Ing. Marilyn Fernanda Bautista Márquez", "Dr. Eden Méndez Rojas", "Dra. Lundy Melchor Mateos", "Lic. José Roberto Esteva Balam", "Lic. Pablo Meraz", "Ing. Laura Leticia Ruíz López", "Lic. Xochitl Guadalupe Vargas López", "Lic. Pedro Cruz Rodríguez", "Lic. Francisco Javier Martínez Guzmán", "Lic. José Luis Cruz Santiago", "Lic. Jorge Porras Sánchez", "Lic. Mariano Cruz Valdivieso" }));
         txtDirigido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
