@@ -2,6 +2,8 @@ package view;
 
 import controller.MemorandumController;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -17,7 +19,12 @@ import javax.swing.table.TableRowSorter;
 import java.io.File;
 import java.time.LocalDate;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -33,12 +40,17 @@ public class Registros extends javax.swing.JFrame {
     public Registros() {
         initComponents();
         setLocationRelativeTo(null);
+        // Configurar el tamaño fijo de la ventana
+        setSize(1513, 927); // Ajusta estas dimensiones a tus necesidades [691, 404] [1513, 927]
+        setResizable(false);
         memoController = new MemorandumController();
         form = new Formulario();
         ajustarColumnas();
+        /*jTable1.setFont(new Font("Nunito", Font.PLAIN, 16)); // Cambia el tamaño según necesites
+        jTable1.setRowHeight(25); // Ajustar la altura de las filas para acomodar el nuevo tamaño de fuente
+         */
         cargarDatos();
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         // Cargar la imagen y establecerla en jLabel1
         ImageIcon icon = new ImageIcon(getClass()
                 .getResource("/icapet/memorandum/Log.png"));
@@ -48,6 +60,49 @@ public class Registros extends javax.swing.JFrame {
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF"));
 
+        // Crear un renderer personalizado
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                // Establecer fuente
+                c.setFont(new Font("Arial", Font.PLAIN, 16));
+
+                // Cambiar el color de fondo según la columna
+                switch (column) {
+                    case 0:
+                        c.setBackground(Color.YELLOW);
+                        break;
+                    case 1:
+                        c.setBackground(Color.CYAN);
+                        break;
+                    case 2:
+                        c.setBackground(Color.PINK);
+                        break;
+                    default:
+                        c.setBackground(Color.WHITE);
+                        break;
+                }
+
+                // Ajustar el color del texto
+                c.setForeground(Color.BLACK);
+
+                // Ajustar el color del texto si la fila está seleccionada
+                if (isSelected) {
+                    c.setBackground(Color.BLUE);
+                    c.setForeground(Color.WHITE);
+                }
+
+                return c;
+            }
+        };
+
+        // Asignar el renderer a cada columna de la tabla
+        for (int i = 0; i < jTable1.getColumnCount(); i++) {
+            jTable1.getColumnModel().getColumn(i).setCellRenderer(renderer);
+        }
+
+        jTable1.setRowHeight(25); // Ajustar la altura de las filas
     }
 
     //icon jframe
@@ -101,6 +156,7 @@ public class Registros extends javax.swing.JFrame {
 
         jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(0, 255, 153));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -131,7 +187,7 @@ public class Registros extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        EditarRegistro.setBackground(new java.awt.Color(93, 82, 39));
+        EditarRegistro.setBackground(new java.awt.Color(230, 212, 191));
         EditarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         EditarRegistro.setForeground(new java.awt.Color(0, 153, 0));
         EditarRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/edi.png"))); // NOI18N
@@ -142,7 +198,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        CrearRegistro.setBackground(new java.awt.Color(93, 82, 39));
+        CrearRegistro.setBackground(new java.awt.Color(230, 212, 191));
         CrearRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         CrearRegistro.setForeground(new java.awt.Color(0, 102, 255));
         CrearRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/nuevo.png"))); // NOI18N
@@ -153,7 +209,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(93, 82, 39));
+        jButton1.setBackground(new java.awt.Color(230, 212, 191));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/eli.png"))); // NOI18N
@@ -175,7 +231,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnWord.setBackground(new java.awt.Color(93, 82, 39));
+        btnWord.setBackground(new java.awt.Color(153, 255, 255));
         btnWord.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnWord.setForeground(new java.awt.Color(0, 0, 0));
         btnWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/word.png"))); // NOI18N
@@ -197,47 +253,44 @@ public class Registros extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(60, 60, 60)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(CrearRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnWord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CrearRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton1)
+                        .addGap(50, 50, 50)
+                        .addComponent(EditarRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(240, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jcbFiltro, 0, 342, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(CrearRegistro)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton1)
-                        .addGap(34, 34, 34)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(EditarRegistro)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jButton2))
+                        .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(CrearRegistro)
+                        .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jcbFiltro)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton2))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -293,22 +346,25 @@ public class Registros extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -458,7 +514,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void configurarFiltrojcb() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         rowSorter = new TableRowSorter<>(model);
@@ -476,15 +532,17 @@ public class Registros extends javax.swing.JFrame {
         });
     }
 
+    private void initicomponents() {
+        jTable1 = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2",
+            "Column3", "Column4", "Column5", "Column6", "Column7", "Column8"}, 0));
+        add(new JScrollPane(jTable1));
+
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -501,15 +559,19 @@ public class Registros extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Registros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Registros().setVisible(true);
             }
         });
+        SwingUtilities.invokeLater(() -> {
+            Registros frame = new Registros();
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+        });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CrearRegistro;
