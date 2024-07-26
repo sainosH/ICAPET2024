@@ -220,7 +220,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(93, 82, 39));
+        jButton2.setBackground(new java.awt.Color(230, 212, 191));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/cerrar.png"))); // NOI18N
@@ -231,7 +231,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        btnWord.setBackground(new java.awt.Color(153, 255, 255));
+        btnWord.setBackground(new java.awt.Color(230, 212, 191));
         btnWord.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnWord.setForeground(new java.awt.Color(0, 0, 0));
         btnWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icapet/memorandum/word.png"))); // NOI18N
@@ -242,7 +242,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        jcbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
+        jcbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -278,19 +278,19 @@ public class Registros extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(EditarRegistro)
-                        .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(CrearRegistro)
                         .addComponent(jButton1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnWord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(EditarRegistro, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -450,14 +450,11 @@ public class Registros extends javax.swing.JFrame {
         }
         try {
             // Obtener los datos de la fila seleccionada
-            //int id = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
             LocalDate fecha = LocalDate.parse(jTable1.getValueAt(selectedRow, 1).toString());
             String numMemo = jTable1.getValueAt(selectedRow, 2).toString();
             String dirigido = jTable1.getValueAt(selectedRow, 3).toString();
             String asunto = jTable1.getValueAt(selectedRow, 4).toString();
             String departamento = jTable1.getValueAt(selectedRow, 5).toString();
-            //String elaborado = jTable1.getValueAt(selectedRow, 6).toString();
-            //String observaciones = jTable1.getValueAt(selectedRow, 7).toString();
 
             // Crear el JFileChooser para seleccionar la ubicación de guardado
             JFileChooser fileChooser = new JFileChooser();
@@ -480,7 +477,6 @@ public class Registros extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            //e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al generar el documento"
                     + " Word: ", "Error", JOptionPane.ERROR_MESSAGE);
         }

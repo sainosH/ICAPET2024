@@ -139,7 +139,7 @@ public class MemorandumController {
         run3.addBreak();
         run3.setText("ASUNTO: ");
         run4.setBold(false);
-        run4.setText(asunto);
+        run4.setText(asunto.toUpperCase());
         run4.addBreak();
         run4.addBreak();
         run5.setBold(true);
@@ -153,7 +153,7 @@ public class MemorandumController {
         run.setBold(true);
         run.setText(dirigido.toUpperCase());
         run.addBreak();
-        run.setText(departamento);
+        run.setText(departamento.toUpperCase());
         run.addBreak();
 
         // Guardar el documento en la ruta especificada
