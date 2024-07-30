@@ -409,23 +409,7 @@
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="15">
-                <StringItem index="0" value="Lic. Yessica Monserrat Hern&#xe1;ndez D&#xe1;vila"/>
-                <StringItem index="1" value="Lic. Matilde Mijangos Almaraz"/>
-                <StringItem index="2" value="Lic. Guadalupe Hern&#xe1;ndez Jacinto"/>
-                <StringItem index="3" value="Ing. Marilyn Fernanda Bautista M&#xe1;rquez"/>
-                <StringItem index="4" value="Dr. Eden M&#xe9;ndez Rojas"/>
-                <StringItem index="5" value="Dra. Lundy Melchor Mateos"/>
-                <StringItem index="6" value="Lic. Jos&#xe9; Roberto Esteva Balam"/>
-                <StringItem index="7" value="Lic. Pablo Meraz"/>
-                <StringItem index="8" value="Ing. Laura Leticia Ru&#xed;z L&#xf3;pez"/>
-                <StringItem index="9" value="Lic. Xochitl Guadalupe Vargas L&#xf3;pez"/>
-                <StringItem index="10" value="Lic. Pedro Cruz Rodr&#xed;guez"/>
-                <StringItem index="11" value="Lic. Francisco Javier Mart&#xed;nez Guzm&#xe1;n"/>
-                <StringItem index="12" value="Lic. Jos&#xe9; Luis Cruz Santiago"/>
-                <StringItem index="13" value="Lic. Jorge Porras S&#xe1;nchez"/>
-                <StringItem index="14" value="Lic. Mariano Cruz Valdivieso"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>

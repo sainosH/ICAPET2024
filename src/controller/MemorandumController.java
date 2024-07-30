@@ -13,7 +13,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 
 /**
@@ -170,5 +173,23 @@ public class MemorandumController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public ArrayList<String> RellenarCombo() {
+        Set<String>destinos = new HashSet<>();
+        String sql = "SELECT nomDestino FROM memorandum";
+        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
+            String memos;
+            while (rs.next()) {
+                memos = rs.getString("nomDestino");
+                destinos.add(memos);
+            }
+            //Agregar validación para no repetir registros
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Datos NO mostrados correctamente,"
+                    + " reinicie la app.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return new ArrayList<>(destinos);
     }
 }

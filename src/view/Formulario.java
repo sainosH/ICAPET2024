@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -29,6 +30,12 @@ public class Formulario extends javax.swing.JFrame {
         jPanel1.setBackground(Color.decode("#5C152B"));
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF"));
+        
+        ArrayList<String>destinos = memoController.RellenarCombo();
+        for(String x: destinos){
+            txtDirigido.addItem(x);
+            System.out.println("Nuevo Item: "+x);
+        }
 
     }
 
@@ -189,7 +196,6 @@ public class Formulario extends javax.swing.JFrame {
 
         txtDirigido.setEditable(true);
         txtDirigido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtDirigido.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lic. Yessica Monserrat Hernández Dávila", "Lic. Matilde Mijangos Almaraz", "Lic. Guadalupe Hernández Jacinto", "Ing. Marilyn Fernanda Bautista Márquez", "Dr. Eden Méndez Rojas", "Dra. Lundy Melchor Mateos", "Lic. José Roberto Esteva Balam", "Lic. Pablo Meraz", "Ing. Laura Leticia Ruíz López", "Lic. Xochitl Guadalupe Vargas López", "Lic. Pedro Cruz Rodríguez", "Lic. Francisco Javier Martínez Guzmán", "Lic. José Luis Cruz Santiago", "Lic. Jorge Porras Sánchez", "Lic. Mariano Cruz Valdivieso" }));
         txtDirigido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDirigidoActionPerformed(evt);
