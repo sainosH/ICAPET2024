@@ -67,8 +67,7 @@ public class MemorandumController {
 
     public DefaultTableModel Mostrar(DefaultTableModel model) {
         String sql = "SELECT * FROM memorandum";
-        try (PreparedStatement st = connection.prepareStatement(sql); 
-                ResultSet rs = st.executeQuery()) {
+        try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
             model.setRowCount(0);
             String[] memos = new String[8];
             while (rs.next()) {
@@ -119,6 +118,15 @@ public class MemorandumController {
     public void generarDocumentoWord(String filePath, LocalDate fecha,
             String numMemo, String dirigido, String asunto, String departamento) {
         XWPFDocument document = new XWPFDocument();
+
+        XWPFParagraph paragraph2 = document.createParagraph();
+        paragraph2.setAlignment(ParagraphAlignment.CENTER);
+        XWPFRun run6 = paragraph2.createRun();
+
+        run6.setBold(true);
+        run6.setText(" \"2024, BICENTENARIO DE LA INTEGRACION DE OAXACA A LA REPUBLICA MEXICANA\" ");
+        
+        run6.addBreak();
 
         XWPFParagraph paragraph1 = document.createParagraph();
         paragraph1.setAlignment(ParagraphAlignment.RIGHT);
