@@ -128,7 +128,7 @@ public class MemorandumController {
 
         run6.setBold(true);
         run6.setText(" \"2024, BICENTENARIO DE LA INTEGRACION DE OAXACA A LA REPUBLICA MEXICANA\" ");
-        
+
         run6.addBreak();
 
         XWPFParagraph paragraph1 = document.createParagraph();
@@ -174,17 +174,24 @@ public class MemorandumController {
             e.printStackTrace();
         }
     }
-    
+
     public ArrayList<String> RellenarCombo(String dato) {
-        Set<String>destinos = new HashSet<>();
-        String sql = "SELECT "+ dato +" FROM memorandum";
+        Set<String> destinos = new HashSet<>();
+        String sql = "SELECT " + dato + " FROM memorandum";
         try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
             String memos;
-            while (rs.next()) {
-                memos = rs.getString(dato);
-                destinos.add(memos);
+            if (dato != "fecha") {
+                while (rs.next()) {
+                    memos = rs.getString(dato);
+                    destinos.add(memos);
+                }
+            } else {
+                while (rs.next()) {
+                    memos = rs.getString(dato).split("-")[0];
+                    destinos.add(memos);
+                }
             }
-            //Agregar validación para no repetir registros
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "Datos NO mostrados correctamente,"
