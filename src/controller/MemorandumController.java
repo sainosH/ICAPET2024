@@ -180,7 +180,7 @@ public class MemorandumController {
         String sql = "SELECT " + dato + " FROM memorandum";
         try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
             String memos;
-            if (dato != "fecha") {
+            if (!dato.equals("fecha")) {
                 while (rs.next()) {
                     memos = rs.getString(dato);
                     destinos.add(memos);

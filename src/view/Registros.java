@@ -20,6 +20,7 @@ import javax.swing.table.TableRowSorter;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -60,8 +61,10 @@ public class Registros extends javax.swing.JFrame {
             jcbFiltro.addItem(x);
             System.out.println("Nuevo Item: " + x);
         }
-        
+
         ArrayList<String> año = memoController.RellenarCombo("fecha");
+        // Invertir la lista
+        Collections.reverse(año);
         for (String x : año) {
             jcbAño.addItem(x);
             System.out.println("Nuevo Item: " + x);
@@ -372,7 +375,7 @@ public class Registros extends javax.swing.JFrame {
         form.configurarParaNuevoRegistro(); // Configurar para nuevo registro
         form.setVisible(true);
         this.dispose();
-        
+
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
@@ -435,7 +438,6 @@ public class Registros extends javax.swing.JFrame {
                 null,
                 options,
                 options[0]
-        
         );
 
         // Verificar la respuesta del usuario
@@ -447,7 +449,7 @@ public class Registros extends javax.swing.JFrame {
 
 
     private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
-        
+
     }//GEN-LAST:event_txtFiltroKeyTyped
 
     private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
