@@ -19,6 +19,7 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -54,6 +55,11 @@ public class Registros extends javax.swing.JFrame {
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF"));
 
+        ArrayList<String> departamento = memoController.RellenarCombo("departamento");
+        for (String x : departamento) {
+            jcbFiltro.addItem(x);
+            System.out.println("Nuevo Item: " + x);
+        }
     }
 
     //icon jframe
@@ -206,7 +212,7 @@ public class Registros extends javax.swing.JFrame {
             }
         });
 
-        jcbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
+        jcbFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -342,6 +348,7 @@ public class Registros extends javax.swing.JFrame {
         form.configurarParaNuevoRegistro(); // Configurar para nuevo registro
         form.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed

@@ -175,13 +175,13 @@ public class MemorandumController {
         }
     }
     
-    public ArrayList<String> RellenarCombo() {
+    public ArrayList<String> RellenarCombo(String dato) {
         Set<String>destinos = new HashSet<>();
-        String sql = "SELECT nomDestino FROM memorandum";
+        String sql = "SELECT "+ dato +" FROM memorandum";
         try (PreparedStatement st = connection.prepareStatement(sql); ResultSet rs = st.executeQuery()) {
             String memos;
             while (rs.next()) {
-                memos = rs.getString("nomDestino");
+                memos = rs.getString(dato);
                 destinos.add(memos);
             }
             //Agregar validación para no repetir registros

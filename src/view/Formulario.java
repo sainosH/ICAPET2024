@@ -30,13 +30,18 @@ public class Formulario extends javax.swing.JFrame {
         jPanel1.setBackground(Color.decode("#5C152B"));
         // Cambiar el color de fondo del panel
         jPanel2.setBackground(Color.decode("#FFFFFF"));
-        
-        ArrayList<String>destinos = memoController.RellenarCombo();
-        for(String x: destinos){
+
+        ArrayList<String> destinos = memoController.RellenarCombo("nomDestino");
+        for (String x : destinos) {
             txtDirigido.addItem(x);
-            System.out.println("Nuevo Item: "+x);
+            System.out.println("Nuevo Item: " + x);
         }
 
+        ArrayList<String> departamento = memoController.RellenarCombo("departamento");
+        for (String x : departamento) {
+            jcbDepartamento.addItem(x);
+            System.out.println("Nuevo Item: " + x);
+        }
     }
 
     //icon jframe
@@ -133,7 +138,6 @@ public class Formulario extends javax.swing.JFrame {
 
         jcbDepartamento.setEditable(true);
         jcbDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jcbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "RECURSOS HUMANOS", "DIRECTOR TÉCNICO ACADÉMICO", "DEPARTAMENTO DE INFORMÁTICA Y ESTADÍSTICA", "DEPARTAMENTO JURÍDICO", "DIRECTORA ADMINISTRATIVA", "UDC 154 POCHUTLA", "DIRECTOR DE VINCULACIÓN", "ENCARGADO DE LA ACCIÓN MÓVIL", "UDC 085 OAXACA" }));
         jcbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbDepartamentoActionPerformed(evt);
