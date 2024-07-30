@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Sainos
+ * @author Sainos & Vite
  */
 public class Formulario extends javax.swing.JFrame {
 

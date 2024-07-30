@@ -7,7 +7,7 @@ import view.Registros;
 
 /**
  *
- * @author Vite
+ * @author Vite & Sainos
  */
 public class Principal extends javax.swing.JFrame {
 

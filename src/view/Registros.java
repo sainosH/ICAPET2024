@@ -24,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Sainos
+ * @author Sainos & Vite
  */
 public class Registros extends javax.swing.JFrame {
 
@@ -344,11 +344,6 @@ public class Registros extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
-    /**
-     * Descripción: Método para rellenar el jTable 
-     * Autor : Fernando Vite
-     * Modificaciones: Vite
-     */
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -396,11 +391,6 @@ public class Registros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * Descripción: Método para cerrar la app 
-     * Autor : Sainos
-     * Modificaciones: Fernando Vite
-     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // Opciones personalizadas
         String[] options = {"Sí", "No"};
@@ -471,11 +461,6 @@ public class Registros extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnWordActionPerformed
 
-    /**
-     * Descripción: Método para rellenar el jTable 
-     * Autor : Fernando Vite
-     * Modificaciones: Sainos & Vite
-     */
     private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         // Limpiar la tabla no se puedo eliminar el registro.
@@ -504,10 +489,6 @@ public class Registros extends javax.swing.JFrame {
         });
     }
 
-    /**
-     * Descripción: Método para filtrar mediante un JComboBox 
-     * Autor : Fernando Vite
-     */
     private void configurarFiltrojcb() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         rowSorter = new TableRowSorter<>(model);
