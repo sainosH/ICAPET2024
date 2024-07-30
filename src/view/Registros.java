@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.time.LocalDate;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author Sainos
@@ -38,12 +41,10 @@ public class Registros extends javax.swing.JFrame {
         setResizable(false);
         memoController = new MemorandumController();
         form = new Formulario();
-        ajustarColumnas();
         jTable1.setFont(new Font("Nunito", Font.PLAIN, 14)); // Cambia el tamaño según necesites
         jTable1.setRowHeight(25); // Ajustar la altura de las filas para acomodar el nuevo tamaño de fuente
-        
+
         cargarDatos();
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
         // Cargar la imagen y establecerla en jLabel1
         ImageIcon icon = new ImageIcon(getClass()
                 .getResource("/icapet/memorandum/Log.png"));
@@ -62,20 +63,6 @@ public class Registros extends javax.swing.JFrame {
         Image icono = Toolkit.getDefaultToolkit().getImage(getClass()
                 .getResource("/icapet/memorandum/logoGobierno2.png"));
         return icono;
-    }
-
-    public void ajustarColumnas() {
-        // Obtener el modelo de columnas
-        TableColumnModel columnModel = jTable1.getColumnModel();
-        // Ajustar el ancho de las columnas
-        columnModel.getColumn(0).setPreferredWidth(1);
-        columnModel.getColumn(1).setPreferredWidth(10);
-        columnModel.getColumn(2).setPreferredWidth(65);
-        columnModel.getColumn(3).setPreferredWidth(90);
-        columnModel.getColumn(4).setPreferredWidth(35);
-        columnModel.getColumn(5).setPreferredWidth(25);
-        columnModel.getColumn(6).setPreferredWidth(15);
-        columnModel.getColumn(7).setPreferredWidth(80);
     }
 
     @SuppressWarnings("unchecked")
@@ -130,12 +117,39 @@ public class Registros extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTable1.getColumnModel().getColumn(1).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
+            jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(2).setMinWidth(170);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(170);
+            jTable1.getColumnModel().getColumn(2).setMaxWidth(170);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(260);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(260);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(260);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(170);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(170);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(170);
+            jTable1.getColumnModel().getColumn(5).setMinWidth(190);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(190);
+            jTable1.getColumnModel().getColumn(5).setMaxWidth(190);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(110);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(110);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(110);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(230);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(230);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(230);
+        }
 
         EditarRegistro.setBackground(new java.awt.Color(230, 212, 191));
         EditarRegistro.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -330,6 +344,11 @@ public class Registros extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CrearRegistroActionPerformed
 
+    /**
+     * Descripción: Método para rellenar el jTable 
+     * Autor : Fernando Vite
+     * Modificaciones: Vite
+     */
     private void EditarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarRegistroActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -377,21 +396,37 @@ public class Registros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    /**
+     * Descripción: Método para cerrar la app 
+     * Autor : Sainos
+     * Modificaciones: Fernando Vite
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Cerrar la aplicación
-        System.exit(0);
+        // Opciones personalizadas
+        String[] options = {"Sí", "No"};
+        // Mostrar un JOptionPane de confirmación
+        int respuesta = JOptionPane.showOptionDialog(
+                null,
+                "¿Estás seguro de que deseas cerrar la aplicación?",
+                "Confirmar cierre",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+        
+        );
+
+        // Verificar la respuesta del usuario
+        if (respuesta == JOptionPane.YES_OPTION) {
+            // Cerrar la aplicación
+            System.exit(0);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
-        if (rowSorter != null) {
-            String text = txtFiltro.getText();
-            if (text.trim().length() == 0) {
-                rowSorter.setRowFilter(null);
-            } else {
-                rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-            }
-        }
+        
     }//GEN-LAST:event_txtFiltroKeyTyped
 
     private void btnWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWordActionPerformed
@@ -436,6 +471,11 @@ public class Registros extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnWordActionPerformed
 
+    /**
+     * Descripción: Método para rellenar el jTable 
+     * Autor : Fernando Vite
+     * Modificaciones: Sainos & Vite
+     */
     private void cargarDatos() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         // Limpiar la tabla no se puedo eliminar el registro.
@@ -464,15 +504,19 @@ public class Registros extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Descripción: Método para filtrar mediante un JComboBox 
+     * Autor : Fernando Vite
+     */
     private void configurarFiltrojcb() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         rowSorter = new TableRowSorter<>(model);
         jTable1.setRowSorter(rowSorter);
-        jcbFiltro.addKeyListener(new KeyAdapter() {
+        jcbFiltro.addActionListener(new ActionListener() {
             @Override
-            public void keyTyped(KeyEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 String filtrado = jcbFiltro.getSelectedItem().toString();
-                if (filtrado.trim().length() == 0) {
+                if (filtrado.trim().isEmpty()) {
                     rowSorter.setRowFilter(null);
                 } else {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + filtrado));
