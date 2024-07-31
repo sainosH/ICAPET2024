@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -38,8 +39,13 @@ public class Registros extends javax.swing.JFrame {
     public Registros() {
         initComponents();
         setLocationRelativeTo(null);
+        pack();
+
+        // Hacer que el frame se ajuste al tamaño de la pantalla
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         // Configurar el tamaño fijo de la ventana
-        setSize(1400, 850); // Ajusta estas dimensiones a tus necesidades [691, 404] [1513, 927]
+        //setSize(1400, 850); // Ajusta estas dimensiones a tus necesidades [691, 404] [1513, 927]
         setResizable(false);
         memoController = new MemorandumController();
         form = new Formulario();
@@ -59,7 +65,6 @@ public class Registros extends javax.swing.JFrame {
         ArrayList<String> departamento = memoController.RellenarCombo("departamento");
         for (String x : departamento) {
             jcbFiltro.addItem(x);
-            System.out.println("Nuevo Item: " + x);
         }
 
         ArrayList<String> año = memoController.RellenarCombo("fecha");
@@ -67,7 +72,6 @@ public class Registros extends javax.swing.JFrame {
         Collections.reverse(año);
         for (String x : año) {
             jcbAño.addItem(x);
-            System.out.println("Nuevo Item: " + x);
         }
     }
 

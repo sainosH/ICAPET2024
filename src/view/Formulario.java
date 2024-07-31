@@ -34,13 +34,11 @@ public class Formulario extends javax.swing.JFrame {
         ArrayList<String> destinos = memoController.RellenarCombo("nomDestino");
         for (String x : destinos) {
             txtDirigido.addItem(x);
-            System.out.println("Nuevo Item: " + x);
         }
 
         ArrayList<String> departamento = memoController.RellenarCombo("departamento");
         for (String x : departamento) {
             jcbDepartamento.addItem(x);
-            System.out.println("Nuevo Item: " + x);
         }
     }
 
