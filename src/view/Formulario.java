@@ -373,7 +373,18 @@ public class Formulario extends javax.swing.JFrame {
             // Formato para obtener los últimos dos dígitos del año
             SimpleDateFormat sdfYear = new SimpleDateFormat("yy");
             String shortYear = sdfYear.format(date);
-            String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
+            Integer num = (Integer) jSpinner1.getValue();
+            String folio;
+            if(num < 10){
+                folio = "00"+num;
+            }else{
+                if (num < 100){
+                    folio = "0"+num;
+                }else{
+                    folio = ""+num;
+                }
+            }
+            String numMemo = jTextField1.getText() + folio + "/" + shortYear;
 
             // Verificar si el numMemo ya existe en otro registro en la base de datos
             if (memoController.existeNumMemoEnOtroRegistro(numMemo, id)) {
@@ -408,7 +419,18 @@ public class Formulario extends javax.swing.JFrame {
             // Formato para obtener los últimos dos dígitos del año
             SimpleDateFormat sdfYear = new SimpleDateFormat("yy");
             String shortYear = sdfYear.format(date);
-            String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
+            Integer num = (Integer) jSpinner1.getValue();
+            String folio;
+            if(num < 10){
+                folio = "00"+num;
+            }else{
+                if (num < 100){
+                    folio = "0"+num;
+                }else{
+                    folio = ""+num;
+                }
+            }
+            String numMemo = jTextField1.getText() + folio + "/" + shortYear;
 
             // Verificar si el numMemo ya existe en la base de datos
             if (memoController.existeNumMemo(numMemo)) {
