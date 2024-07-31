@@ -11,16 +11,13 @@ import view.Registros;
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RegistroMemos
-     */
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
-         // Configurar el tamaño fijo de la ventana
+        // Configurar el tamaño fijo de la ventana
         setSize(800, 600); // Ajusta estas dimensiones a tus necesidades [691, 404]
         setResizable(false);
-        
+
         // Cargar la imagen y establecerla en jLabel1
         ImageIcon icon = new ImageIcon(getClass().getResource("/icapet/memorandum/logoGobierno.png"));
         jLabel1.setIcon(icon);

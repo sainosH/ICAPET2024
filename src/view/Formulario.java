@@ -363,7 +363,6 @@ public class Formulario extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbDepartamentoActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // TODO add your handling code here:
         try {
             String nombre = txtElaborado.getText();
             String dirigido = txtDirigido.getSelectedItem().toString();
@@ -377,15 +376,23 @@ public class Formulario extends javax.swing.JFrame {
             SimpleDateFormat sdfYear = new SimpleDateFormat("yy");
             String shortYear = sdfYear.format(date);
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
-            // Llamar al método Registro del controlador
-            memoController.Actualizar(id, date, numMemo, dirigido, asunto,
-                    departamento, nombre, observaciones);
+
+            // Verificar si el numMemo ya existe en otro registro en la base de datos
+            if (memoController.existeNumMemoEnOtroRegistro(numMemo, id)) {
+                JOptionPane.showMessageDialog(null, "El número de MEMO ya existe en otro registro. Por favor, ingrese uno diferente.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Llamar al método Actualizar del controlador para actualizar el memo
+            memoController.Actualizar(id, date, numMemo, dirigido, asunto, departamento, nombre, observaciones);
+
             // Regresar a la pantalla de registros
             volverARegistros();
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados "
-                    + "correctamente, intente de nuevo.", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, intente de nuevo.",
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -405,16 +412,21 @@ public class Formulario extends javax.swing.JFrame {
             String shortYear = sdfYear.format(date);
             String numMemo = jTextField1.getText() + jSpinner1.getValue().toString() + "/" + shortYear;
 
-            // Llamar al método Registro del controlador
+            // Verificar si el numMemo ya existe en la base de datos
+            if (memoController.existeNumMemo(numMemo)) {
+                JOptionPane.showMessageDialog(null, "El número de MEMO ya existe. Por favor, ingrese uno diferente.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Llamar al método Registro del controlador para guardar el memo
             memoController.Registro(date, numMemo, dirigido, asunto, departamento, nombre, observaciones);
-            //JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
 
             // Regresar a la pantalla de registros
             volverARegistros();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados "
-                    + "correctamente, puede que el #MEMO ya esté ocupado.",
+            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, puede que el #MEMO ya esté ocupado.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

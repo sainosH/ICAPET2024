@@ -33,7 +33,7 @@ public class MemorandumController {
     }
 
     public void Registro(Date fechaOrig, String memorando, String dirigido,
-            String asunto, String area, String elabora, String observaciones) {
+        String asunto, String area, String elabora, String observaciones) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String fecha = sdf.format(fechaOrig);
 
@@ -198,5 +198,36 @@ public class MemorandumController {
                     + " reinicie la app.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return new ArrayList<>(destinos);
+    }
+    
+    // Método para verificar si el numMemo ya existe en la base de datos
+    public boolean existeNumMemo(String numMemo) {
+        String query = "SELECT COUNT(*) FROM memorandum WHERE numMemo = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, numMemo);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si el conteo es mayor a 0
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // En caso de error o si no se encontró, retorna false
+    }
+    
+    // Método para verificar si el numMemo ya existe en otro registro
+    public boolean existeNumMemoEnOtroRegistro(String numMemo, int currentId) {
+        String query = "SELECT COUNT(*) FROM memorandum WHERE numMemo = ? AND id != ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, numMemo);
+            stmt.setInt(2, currentId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0; // Retorna true si el conteo es mayor a 0
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // En caso de error o si no se encontró, retorna false
     }
 }
