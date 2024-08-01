@@ -530,28 +530,40 @@ public class Registros extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         rowSorter = new TableRowSorter<>(model);
         jTable1.setRowSorter(rowSorter);
-        jcbFiltro.addActionListener(new ActionListener() {
+        ActionListener filterListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                String filtrado = jcbFiltro.getSelectedItem().toString();
-                if (filtrado.trim().isEmpty()) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + filtrado));
-                }
+                applyFilters();
             }
-        });
-        jcbAño.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                String filtrado = jcbAño.getSelectedItem().toString();
-                if (filtrado.trim().isEmpty()) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + filtrado));
-                }
-            }
-        });
+        };
+
+        jcbFiltro.addActionListener(filterListener);
+        jcbAño.addActionListener(filterListener);
+    }
+    
+    private void applyFilters() {
+        String filtro1 = jcbFiltro.getSelectedItem().toString().trim();
+        String filtro2 = jcbAño.getSelectedItem().toString().trim();
+
+        RowFilter<DefaultTableModel, Object> rf1 = null;
+        RowFilter<DefaultTableModel, Object> rf2 = null;
+
+        if (!filtro1.isEmpty()) {
+            rf1 = RowFilter.regexFilter("(?i)" + filtro1);
+        }
+        if (!filtro2.isEmpty()) {
+            rf2 = RowFilter.regexFilter("(?i)" + filtro2);
+        }
+
+        if (rf1 != null && rf2 != null) {
+            rowSorter.setRowFilter(RowFilter.andFilter(java.util.List.of(rf1, rf2)));
+        } else if (rf1 != null) {
+            rowSorter.setRowFilter(rf1);
+        } else if (rf2 != null) {
+            rowSorter.setRowFilter(rf2);
+        } else {
+            rowSorter.setRowFilter(null);
+        }
     }
 
     /**
