@@ -38,15 +38,13 @@ public class Registros extends javax.swing.JFrame {
 
     public Registros() {
         initComponents();
-        setLocationRelativeTo(null);
+        //setLocationRelativeTo(null);
+        setLocation(0,0);
         pack();
 
-        // Hacer que el frame se ajuste al tamaño de la pantalla
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         // Configurar el tamaño fijo de la ventana
-        //setSize(1400, 850); // Ajusta estas dimensiones a tus necesidades [691, 404] [1513, 927]
-        setResizable(false);
+        setSize(1600, 900); // Ajusta estas dimensiones a tus necesidades [691, 404] [1513, 927]
+        setResizable(true);
         memoController = new MemorandumController();
         form = new Formulario();
         jTable1.setFont(new Font("Nunito", Font.PLAIN, 14)); // Cambia el tamaño según necesites
@@ -146,30 +144,21 @@ public class Registros extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(90);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(90);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(90);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(170);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(170);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(170);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(260);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(260);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(260);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(170);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(170);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(170);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(190);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(190);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(190);
-            jTable1.getColumnModel().getColumn(6).setMinWidth(110);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(110);
-            jTable1.getColumnModel().getColumn(6).setMaxWidth(110);
-            jTable1.getColumnModel().getColumn(7).setMinWidth(230);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(230);
-            jTable1.getColumnModel().getColumn(7).setMaxWidth(230);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setPreferredWidth(190);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(280);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(200);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(250);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(120);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(280);
         }
 
         EditarRegistro.setBackground(new java.awt.Color(230, 212, 191));
@@ -246,7 +235,7 @@ public class Registros extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(CrearRegistro)
                         .addGap(18, 18, 18)
@@ -254,19 +243,18 @@ public class Registros extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(EditarRegistro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jcbAño, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jcbAño, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
                         .addComponent(btnWord, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)))
-                .addContainerGap(287, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,24 +266,16 @@ public class Registros extends javax.swing.JFrame {
                             .addComponent(CrearRegistro)
                             .addComponent(jButton1)
                             .addComponent(EditarRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(jcbFiltro))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jButton2)
-                                    .addComponent(btnWord))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(4, 4, 4)
-                                    .addComponent(jcbAño, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                        .addGap(4, 4, 4))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(btnWord)
+                        .addComponent(jcbAño, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -332,11 +312,11 @@ public class Registros extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 769, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(83, 83, 83))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
