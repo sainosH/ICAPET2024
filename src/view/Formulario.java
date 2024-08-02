@@ -446,7 +446,7 @@ public class Formulario extends javax.swing.JFrame {
             volverARegistros();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Datos no actualizados correctamente, puede que el #MEMO ya esté ocupado.",
+            JOptionPane.showMessageDialog(null, "Datos no guardados correctamente, verifique sus datos.",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed

@@ -39,7 +39,7 @@ public class Registros extends javax.swing.JFrame {
     public Registros() {
         initComponents();
         //setLocationRelativeTo(null);
-        setLocation(0,0);
+        setLocation(0, 0);
         pack();
 
         // Configurar el tamaño fijo de la ventana
@@ -378,7 +378,7 @@ public class Registros extends javax.swing.JFrame {
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Selecciona una fila para "
-                        + "editar", "Error", JOptionPane.ERROR_MESSAGE);
+                        + "editar", "Error", JOptionPane.WARNING_MESSAGE);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -392,11 +392,28 @@ public class Registros extends javax.swing.JFrame {
         int fila = jTable1.getSelectedRow();
         if (fila == -1) {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado "
-                    + "un registro", "Error", JOptionPane.ERROR_MESSAGE);
+                    + "un registro", "Error", JOptionPane.WARNING_MESSAGE);
         } else {
-            int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
-            memoController.Eliminar(id);
-            cargarDatos();
+            // Opciones personalizadas
+            String[] options = {"Sí", "No"};
+            // Mostrar un JOptionPane de confirmación
+            int respuesta = JOptionPane.showOptionDialog(
+                    null,
+                    "¿Estás seguro de eliminar este registro?",
+                    "Confirmar eliminación",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            // Verificar la respuesta del usuario
+            if (respuesta == JOptionPane.YES_OPTION) {
+                int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
+                memoController.Eliminar(id);
+                cargarDatos();
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -409,7 +426,7 @@ public class Registros extends javax.swing.JFrame {
                 "¿Estás seguro de que deseas cerrar la aplicación?",
                 "Confirmar cierre",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.WARNING_MESSAGE,
                 null,
                 options,
                 options[0]
@@ -431,7 +448,7 @@ public class Registros extends javax.swing.JFrame {
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow == -1) {
             JOptionPane.showMessageDialog(this, "No se ha seleccionado "
-                    + "un registro", "Error", JOptionPane.ERROR_MESSAGE);
+                    + "un registro", "Error", JOptionPane.WARNING_MESSAGE);
             return;
         }
         try {
@@ -511,7 +528,7 @@ public class Registros extends javax.swing.JFrame {
         jcbFiltro.addActionListener(filterListener);
         jcbAño.addActionListener(filterListener);
     }
-    
+
     private void applyFilters() {
         String filtro1 = jcbFiltro.getSelectedItem().toString().trim();
         String filtro2 = jcbAño.getSelectedItem().toString().trim();
