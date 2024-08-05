@@ -21,6 +21,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -504,12 +505,7 @@ public class Registros extends javax.swing.JFrame {
         txtFiltro.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                String text = txtFiltro.getText();
-                if (text.trim().length() == 0) {
-                    rowSorter.setRowFilter(null);
-                } else {
-                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-                }
+                applyTextAndYearFilter();
             }
         });
     }
@@ -549,6 +545,31 @@ public class Registros extends javax.swing.JFrame {
             rowSorter.setRowFilter(rf1);
         } else if (rf2 != null) {
             rowSorter.setRowFilter(rf2);
+        } else {
+            rowSorter.setRowFilter(null);
+        }
+    }
+
+    private void applyTextAndYearFilter() {
+        String textFilter = txtFiltro.getText().trim();
+        String yearFilter = jcbAño.getSelectedItem().toString().trim();
+
+        RowFilter<DefaultTableModel, Object> rfText = null;
+        RowFilter<DefaultTableModel, Object> rfYear = null;
+
+        if (!textFilter.isEmpty()) {
+            rfText = RowFilter.regexFilter("(?i)" + textFilter);
+        }
+        if (!yearFilter.isEmpty()) {
+            rfYear = RowFilter.regexFilter("(?i)" + yearFilter);
+        }
+
+        if (rfText != null && rfYear != null) {
+            rowSorter.setRowFilter(RowFilter.andFilter(java.util.List.of(rfText, rfYear)));
+        } else if (rfText != null) {
+            rowSorter.setRowFilter(rfText);
+        } else if (rfYear != null) {
+            rowSorter.setRowFilter(rfYear);
         } else {
             rowSorter.setRowFilter(null);
         }
