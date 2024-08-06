@@ -505,7 +505,7 @@ public class Registros extends javax.swing.JFrame {
         txtFiltro.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                applyTextAndYearFilter();
+                applyFilters();
             }
         });
     }
@@ -526,12 +526,18 @@ public class Registros extends javax.swing.JFrame {
     }
 
     private void applyFilters() {
-        String filtro1 = jcbFiltro.getSelectedItem().toString().trim();
-        String filtro2 = jcbAño.getSelectedItem().toString().trim();
 
+        String textFilter = txtFiltro.getText().trim();
+        String filtro1 = (jcbFiltro.getSelectedItem() != null) ? jcbFiltro.getSelectedItem().toString().trim() : "";
+        String filtro2 = (jcbAño.getSelectedItem() != null) ? jcbAño.getSelectedItem().toString().trim() : "";
+
+        RowFilter<DefaultTableModel, Object> rfText = null;
         RowFilter<DefaultTableModel, Object> rf1 = null;
         RowFilter<DefaultTableModel, Object> rf2 = null;
 
+        if (!textFilter.isEmpty()) {
+            rfText = RowFilter.regexFilter("(?i)" + textFilter);
+        }
         if (!filtro1.isEmpty()) {
             rf1 = RowFilter.regexFilter("(?i)" + filtro1);
         }
@@ -539,39 +545,21 @@ public class Registros extends javax.swing.JFrame {
             rf2 = RowFilter.regexFilter("(?i)" + filtro2);
         }
 
-        if (rf1 != null && rf2 != null) {
-            rowSorter.setRowFilter(RowFilter.andFilter(java.util.List.of(rf1, rf2)));
-        } else if (rf1 != null) {
-            rowSorter.setRowFilter(rf1);
-        } else if (rf2 != null) {
-            rowSorter.setRowFilter(rf2);
-        } else {
+        List<RowFilter<DefaultTableModel, Object>> filters = new ArrayList<>();
+        if (rfText != null) {
+            filters.add(rfText);
+        }
+        if (rf1 != null) {
+            filters.add(rf1);
+        }
+        if (rf2 != null) {
+            filters.add(rf2);
+        }
+
+        if (filters.isEmpty()) {
             rowSorter.setRowFilter(null);
-        }
-    }
-
-    private void applyTextAndYearFilter() {
-        String textFilter = txtFiltro.getText().trim();
-        String yearFilter = jcbAño.getSelectedItem().toString().trim();
-
-        RowFilter<DefaultTableModel, Object> rfText = null;
-        RowFilter<DefaultTableModel, Object> rfYear = null;
-
-        if (!textFilter.isEmpty()) {
-            rfText = RowFilter.regexFilter("(?i)" + textFilter);
-        }
-        if (!yearFilter.isEmpty()) {
-            rfYear = RowFilter.regexFilter("(?i)" + yearFilter);
-        }
-
-        if (rfText != null && rfYear != null) {
-            rowSorter.setRowFilter(RowFilter.andFilter(java.util.List.of(rfText, rfYear)));
-        } else if (rfText != null) {
-            rowSorter.setRowFilter(rfText);
-        } else if (rfYear != null) {
-            rowSorter.setRowFilter(rfYear);
         } else {
-            rowSorter.setRowFilter(null);
+            rowSorter.setRowFilter(RowFilter.andFilter(filters));
         }
     }
 
